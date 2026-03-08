@@ -1,0 +1,140 @@
+/* ===== GENERAL STYLES ===== */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-image: url("static/images/blue.jpg"); /* updated path */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: white;
+}
+
+/* ===== HEADER ===== */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background: rgba(0,0,0,0.6);
+}
+
+header h1 {
+    margin: 0;
+}
+
+nav a {
+    margin-left: 20px;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: #00c3ff;
+}
+
+/* ===== HERO SECTION ===== */
+.hero {
+    text-align: center;
+    padding: 100px 20px;
+}
+
+.hero h2 {
+    font-size: 40px;
+}
+
+.hero button {
+    padding: 12px 25px;
+    border: none;
+    background: #00c3ff;
+    color: white;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.hero button:hover {
+    background: #0099cc;
+}
+
+/* ===== SERVICES ===== */
+#services {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.card {
+    display: inline-block;
+    background: rgba(0,0,0,0.6);
+    padding: 25px;
+    margin: 15px;
+    border-radius: 10px;
+    width: 220px;
+}
+
+.card h3 {
+    margin-top: 0;
+}
+
+.card span {
+    display: block;
+    font-size: 20px;
+    margin: 10px 0;
+}
+
+.card button {
+    padding: 10px 20px;
+    border: none;
+    background: #00c3ff;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.card button:hover {
+    background: #0099cc;
+}
+
+/* ===== PORTFOLIO ===== */
+#portfolio {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+/* ===== CONTACT ===== */
+#contact {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+form {
+    max-width: 400px;
+    margin: auto;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: none;
+}
+
+form button {
+    padding: 12px;
+    border: none;
+    background: #00c3ff;
+    color: white;
+    cursor: pointer;
+}
+
+form button:hover {
+    background: #0099cc;
+}
+
+/* ===== FOOTER ===== */
+footer {
+    text-align: center;
+    padding: 20px;
+    background: rgba(0,0,0,0.6);
+}
