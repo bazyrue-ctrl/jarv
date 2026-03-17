@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,11 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EditPro</title>
 
-    <!-- Link to CSS in static folder -->
+    <!-- CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
-<body>
+<body oncontextmenu="return false;">
 
 <header>
     <h1>EditPro</h1>
@@ -52,7 +53,15 @@
 
 <section id="portfolio">
     <h2>Portfolio</h2>
-    <p>Add your edited videos here.</p>
+
+    <div class="edit">
+        <div class="image-container">
+            <img src="{{ url_for('static', filename='sydney.jpg') }}" alt="Sydney Sweeney">
+            <div class="watermark">GET</div>
+        </div>
+        <p>My first edit - Sydney Sweeney</p>
+    </div>
+
 </section>
 
 <section id="contact">
@@ -69,7 +78,7 @@
     <p>© 2026 EditPro</p>
 </footer>
 
-<!-- Link to JavaScript in static folder -->
+<!-- JS -->
 <script src="{{ url_for('static', filename='script.js') }}"></script>
 
 </body>
