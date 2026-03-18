@@ -43,21 +43,48 @@ nav a:hover {
     font-size: 40px;
 }
 
-.hero button {
-    padding: 12px 25px;
-    border: none;
+/* ===== PORTFOLIO (IMAGE AT TOP) ===== */
+#portfolio {
+    padding: 40px 20px;
+    text-align: center;
+}
+
+/* IMAGE SIZE FIX */
+.image-container {
+    max-width: 280px;   /* 🔥 smaller image */
+    margin: 0 auto;
+    position: relative;
+}
+
+.image-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 10px;
+}
+
+/* EDIT CARD LOOK */
+.edit {
+    background: rgba(0,0,0,0.6);
+    padding: 15px;
+    border-radius: 10px;
+    display: inline-block;
+}
+
+/* GET BUTTON (WATERMARK) */
+.watermark {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
     background: #00c3ff;
-    color: white;
-    font-size: 16px;
-    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 12px;
+    border-radius: 5px;
     cursor: pointer;
+    font-weight: bold;
 }
 
-.hero button:hover {
-    background: #0099cc;
-}
-
-/* ===== SERVICES ===== */
+/* ===== SERVICES (PRICING) ===== */
 #services {
     padding: 60px 20px;
     text-align: center;
@@ -70,10 +97,6 @@ nav a:hover {
     margin: 15px;
     border-radius: 10px;
     width: 220px;
-}
-
-.card h3 {
-    margin-top: 0;
 }
 
 .card span {
@@ -95,44 +118,48 @@ nav a:hover {
     background: #0099cc;
 }
 
-/* ===== PORTFOLIO ===== */
-#portfolio {
-    padding: 60px 20px;
+/* ===== POPUP FORM ===== */
+.popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-content {
+    background: black;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
     text-align: center;
 }
 
-/* FIXED IMAGE SIZE + POSITION */
-.image-container {
-    max-width: 300px;   /* 🔥 controls size (change if needed) */
-    margin: 0 auto;
-    position: relative;
-}
-
-.image-container img {
+.popup-content input,
+.popup-content textarea {
     width: 100%;
-    height: auto;
-    display: block;
-    border-radius: 10px;
-}
-
-/* OPTIONAL: makes it look like a card */
-.edit {
-    margin-top: 20px;
-    background: rgba(0,0,0,0.6);
-    padding: 20px;
-    border-radius: 10px;
-    display: inline-block;
-}
-
-/* WATERMARK FIX */
-.watermark {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    background: rgba(0,0,0,0.6);
-    padding: 5px 10px;
-    font-size: 12px;
+    margin: 10px 0;
+    padding: 8px;
+    border: none;
     border-radius: 5px;
+}
+
+.popup-content button {
+    padding: 10px;
+    background: #00c3ff;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+#closePopup {
+    float: right;
+    cursor: pointer;
+    font-size: 20px;
 }
 
 /* ===== CONTACT ===== */
@@ -172,4 +199,3 @@ footer {
     padding: 20px;
     background: rgba(0,0,0,0.6);
 }
-
