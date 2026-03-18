@@ -1,21 +1,66 @@
-
-/* Sydney image floating top-right */
-#sydney-topright {
-    position: absolute;
-    top: 20px;       /* distance from top of page */
-    right: 20px;     /* distance from right edge */
-    max-width: 200px; /* smaller image */
+/* ===== GENERAL STYLES ===== */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-image: url("static/images/blue.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: white;
 }
 
-#sydney-topright img {
+/* ===== HEADER ===== */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background: transparent; /* removed grey */
+}
+
+header h1 {
+    margin: 0;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+nav a {
+    margin-left: 20px;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+nav a:hover {
+    color: #00c3ff;
+}
+
+/* ===== HERO SECTION ===== */
+.hero {
+    text-align: center;
+    padding: 100px 20px;
+}
+
+.hero h2 {
+    font-size: 40px;
+}
+
+/* ===== SYDNEY IMAGE TOP-RIGHT ===== */
+.image-container {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    max-width: 200px;
+}
+
+.image-container img {
     width: 100%;
     height: auto;
     display: block;
     border-radius: 10px;
 }
 
-/* GET button inside top-right image */
-#sydney-topright .watermark {
+.image-container .watermark {
     position: absolute;
     bottom: 5px;
     right: 5px;
@@ -27,7 +72,133 @@
     font-weight: bold;
 }
 
-/* Ensure the pricing section is not overlapped too much */
+/* ===== SERVICES (PRICING CARDS) ===== */
 #services {
-    padding: 80px 20px 40px 20px; /* add extra top padding to clear floating image */
+    padding: 100px 20px 40px 20px; /* space below floating image */
+}
+
+.card {
+    background: transparent; /* removed grey */
+    padding: 25px;
+    border-radius: 10px;
+    width: 220px;
+    display: inline-block;
+    margin: 10px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5); /* optional for readability */
+}
+
+.card h3 {
+    margin-top: 0;
+}
+
+.card span {
+    display: block;
+    font-size: 20px;
+    margin: 10px 0;
+}
+
+.card button {
+    padding: 10px 20px;
+    border: none;
+    background: #00c3ff;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.card button:hover {
+    background: #0099cc;
+}
+
+/* ===== POPUP FORM ===== */
+.popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-content {
+    background: black;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    text-align: center;
+}
+
+.popup-content input,
+.popup-content textarea {
+    width: 100%;
+    margin: 10px 0;
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+}
+
+.popup-content button {
+    padding: 10px;
+    background: #00c3ff;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+#closePopup {
+    float: right;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+/* ===== CONTACT ===== */
+#contact {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+form {
+    max-width: 400px;
+    margin: auto;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: none;
+}
+
+form button {
+    padding: 12px;
+    border: none;
+    background: #00c3ff;
+    color: white;
+    cursor: pointer;
+}
+
+form button:hover {
+    background: #0099cc;
+}
+
+/* ===== FOOTER ===== */
+footer {
+    text-align: center;
+    padding: 20px;
+    background: transparent; /* removed grey */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+/* ===== RESPONSIVE ===== */
+@media screen and (max-width: 768px) {
+    #services {
+        padding-top: 140px; /* extra space for floating image on small screens */
+    }
+    .cards-container {
+        justify-content: center;
+    }
 }
