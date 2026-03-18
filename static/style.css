@@ -1,21 +1,136 @@
-    margin: 10px 0;
-    padding: 8px;
-    border: none;
-    border-radius: 5px;
-}
-
-.popup-content button {
-    padding: 10px;
-    background: #00c3ff;
-    border: none;
+/* ===== GENERAL STYLES ===== */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-image: url("static/images/blue.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     color: white;
+}
+
+/* ===== HEADER ===== */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background: rgba(0,0,0,0.6); /* original grey overlay */
+}
+
+header h1 {
+    margin: 0;
+}
+
+nav a {
+    margin-left: 20px;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: #00c3ff;
+}
+
+/* ===== HERO SECTION ===== */
+.hero {
+    text-align: center;
+    padding: 100px 20px;
+}
+
+.hero h2 {
+    font-size: 40px;
+}
+
+.hero button {
+    padding: 12px 25px;
+    border: none;
+    background: #00c3ff;
+    color: white;
+    font-size: 16px;
+    border-radius: 6px;
     cursor: pointer;
 }
 
-#closePopup {
-    float: right;
-    cursor: pointer;
+.hero button:hover {
+    background: #0099cc;
+}
+
+/* ===== SERVICES ===== */
+#services {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.card {
+    display: inline-block;
+    background: rgba(0,0,0,0.6); /* original grey overlay */
+    padding: 25px;
+    margin: 15px;
+    border-radius: 10px;
+    width: 220px;
+}
+
+.card h3 {
+    margin-top: 0;
+}
+
+.card span {
+    display: block;
     font-size: 20px;
+    margin: 10px 0;
+}
+
+.card button {
+    padding: 10px 20px;
+    border: none;
+    background: #00c3ff;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.card button:hover {
+    background: #0099cc;
+}
+
+/* ===== PORTFOLIO ===== */
+#portfolio {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.edit {
+    background: rgba(0,0,0,0.6); /* grey overlay */
+    padding: 15px;
+    border-radius: 10px;
+    display: inline-block;
+}
+
+.image-container {
+    max-width: 300px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.image-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 10px;
+}
+
+.watermark {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: #00c3ff;
+    padding: 6px 12px;
+    font-size: 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
 }
 
 /* ===== CONTACT ===== */
@@ -47,4 +162,11 @@ form button {
 
 form button:hover {
     background: #0099cc;
+}
+
+/* ===== FOOTER ===== */
+footer {
+    text-align: center;
+    padding: 20px;
+    background: rgba(0,0,0,0.6); /* grey overlay */
 }
