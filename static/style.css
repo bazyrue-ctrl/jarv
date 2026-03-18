@@ -1,20 +1,21 @@
-/* ===== SYDNEY IMAGE TOP-RIGHT FLOAT ===== */
-.image-container {
-    position: absolute;      /* float it */
-    top: 20px;               /* distance from top of page */
-    right: 20px;             /* distance from right edge */
-    max-width: 200px;        /* control image size */
+
+/* Sydney image floating top-right */
+#sydney-topright {
+    position: absolute;
+    top: 20px;       /* distance from top of page */
+    right: 20px;     /* distance from right edge */
+    max-width: 200px; /* smaller image */
 }
 
-.image-container img {
+#sydney-topright img {
     width: 100%;
     height: auto;
     display: block;
     border-radius: 10px;
 }
 
-/* GET BUTTON ON IMAGE */
-.image-container .watermark {
+/* GET button inside top-right image */
+#sydney-topright .watermark {
     position: absolute;
     bottom: 5px;
     right: 5px;
@@ -26,40 +27,7 @@
     font-weight: bold;
 }
 
-/* ===== SERVICES SECTION ===== */
+/* Ensure the pricing section is not overlapped too much */
 #services {
-    padding: 100px 20px 40px 20px; /* add top padding so it’s below floating image */
-}
-
-/* CARD STYLING */
-.card {
-    background: rgba(0,0,0,0.6);
-    padding: 25px;
-    border-radius: 10px;
-    width: 220px;
-    display: inline-block;
-    margin: 10px;
-}
-
-.card h3 {
-    margin-top: 0;
-}
-
-.card span {
-    display: block;
-    font-size: 20px;
-    margin: 10px 0;
-}
-
-.card button {
-    padding: 10px 20px;
-    border: none;
-    background: #00c3ff;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.card button:hover {
-    background: #0099cc;
+    padding: 80px 20px 40px 20px; /* add extra top padding to clear floating image */
 }
