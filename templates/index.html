@@ -24,20 +24,23 @@
     <p>I create high-quality edits for creators, gamers, and businesses.</p>
 </section>
 
-<!-- ✅ PORTFOLIO (NOW ABOVE PRICING) -->
+<!-- ✅ PORTFOLIO -->
 <section id="portfolio">
     <h2>Portfolio</h2>
 
+    <!-- Edit text box -->
     <div class="edit">
-        <div class="image-container">
-            <img src="{{ url_for('static', filename='sydney.jpg') }}" alt="Sydney Sweeney">
-            <div class="watermark" id="openPopup">GET</div>
-        </div>
         <p>My first edit - Sydney Sweeney</p>
+    </div>
+
+    <!-- Sydney image NOW below -->
+    <div class="image-container">
+        <img src="{{ url_for('static', filename='sydney.jpg') }}" alt="Sydney Sweeney">
+        <div class="watermark" id="openPopup">GET</div>
     </div>
 </section>
 
-<!-- ✅ SERVICES (NOW BELOW IMAGE) -->
+<!-- ✅ SERVICES -->
 <section id="services">
     <h2>Services</h2>
 
