@@ -24,30 +24,29 @@
     <p>I create high-quality edits for creators, gamers, and businesses.</p>
 </section>
 
-<!-- ✅ PORTFOLIO (AUTO LAYOUT NOW) -->
+<!-- ✅ PORTFOLIO -->
 <section id="portfolio">
     <h2>Portfolio</h2>
 
-    <!-- Title / description -->
+    <!-- Edit Pro text -->
     <div class="edit">
         <p>My edits</p>
     </div>
 
-    <!-- Images container -->
+    <!-- Container for all images -->
     <div class="portfolio-images">
 
-        <!-- Image 1 -->
+        <!-- Example Image 1 -->
         <div class="image-container">
             <img src="{{ url_for('static', filename='sydney.jpg') }}" alt="Sydney Sweeney">
-            <div class="watermark" id="openPopup">GET</div>
+            <a href="#" class="watermark openPopup">GET</a>
         </div>
 
-        <!-- 🔥 ADD MORE IMAGES BELOW LIKE THIS -->
-
+        <!-- Example Image 2 (add more as needed) -->
         <!--
         <div class="image-container">
-            <img src="{{ url_for('static', filename='yourimage.jpg') }}">
-            <div class="watermark">GET</div>
+            <img src="{{ url_for('static', filename='image2.jpg') }}" alt="Another Edit">
+            <a href="#" class="watermark openPopup">GET</a>
         </div>
         -->
 
@@ -107,6 +106,21 @@
 </footer>
 
 <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+<script>
+// Open popup for all GET buttons
+document.querySelectorAll(".openPopup").forEach(btn => {
+    btn.addEventListener("click", function(e) {
+        e.preventDefault();
+        document.getElementById("popupForm").style.display = "block";
+    });
+});
+
+// Close popup
+document.getElementById("closePopup").addEventListener("click", function() {
+    document.getElementById("popupForm").style.display = "none";
+});
+</script>
 
 </body>
 </html>
