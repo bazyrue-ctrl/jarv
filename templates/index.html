@@ -28,17 +28,13 @@
 <section id="portfolio">
     <h2>Portfolio</h2>
 
-    <!-- Edit Pro text -->
     <div class="edit">
+        <div class="image-container">
+            <img src="{{ url_for('static', filename='sydney.jpg') }}" alt="Sydney Sweeney">
+            <div class="watermark" id="openPopup">GET</div>
+        </div>
         <p>My first edit - Sydney Sweeney</p>
     </div>
-
-    <!-- Sydney image below the edit text -->
-    <div class="image-container">
-        <img src="{{ url_for('static', filename='sydney.jpg') }}" alt="Sydney Sweeney">
-        <div class="watermark" id="openPopup">GET</div>
-    </div>
-
 </section>
 
 <!-- ===== SERVICES ===== -->
