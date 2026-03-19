@@ -24,19 +24,33 @@
     <p>I create high-quality edits for creators, gamers, and businesses.</p>
 </section>
 
-<!-- ✅ PORTFOLIO -->
+<!-- ✅ PORTFOLIO (AUTO LAYOUT NOW) -->
 <section id="portfolio">
     <h2>Portfolio</h2>
 
-    <!-- Edit text box -->
+    <!-- Title / description -->
     <div class="edit">
-        <p>My first edit - Sydney Sweeney</p>
+        <p>My edits</p>
     </div>
 
-    <!-- Sydney image NOW below -->
-    <div class="image-container">
-        <img src="{{ url_for('static', filename='sydney.jpg') }}" alt="Sydney Sweeney">
-        <div class="watermark" id="openPopup">GET</div>
+    <!-- Images container -->
+    <div class="portfolio-images">
+
+        <!-- Image 1 -->
+        <div class="image-container">
+            <img src="{{ url_for('static', filename='sydney.jpg') }}" alt="Sydney Sweeney">
+            <div class="watermark" id="openPopup">GET</div>
+        </div>
+
+        <!-- 🔥 ADD MORE IMAGES BELOW LIKE THIS -->
+
+        <!--
+        <div class="image-container">
+            <img src="{{ url_for('static', filename='yourimage.jpg') }}">
+            <div class="watermark">GET</div>
+        </div>
+        -->
+
     </div>
 </section>
 
