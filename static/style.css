@@ -99,6 +99,9 @@ nav a:hover {
 #portfolio {
     padding: 60px 20px;
     text-align: center;
+    display: flex;
+    flex-direction: column; /* ensures image goes below Edit Pro */
+    align-items: center;
 }
 
 .edit {
@@ -106,6 +109,7 @@ nav a:hover {
     padding: 15px;
     border-radius: 10px;
     display: inline-block;
+    margin-bottom: 20px; /* small spacing above image */
 }
 
 .image-container {
