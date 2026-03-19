@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EditPro</title>
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!-- Use relative paths for standalone version -->
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body oncontextmenu="return false;">
@@ -30,7 +31,7 @@
 
     <div class="edit">
         <div class="image-container">
-            <img src="{{ url_for('static', filename='sydney.jpg') }}" alt="Sydney Sweeney">
+            <img src="sydney.jpg" alt="Sydney Sweeney">
             <div class="watermark" id="openPopup">GET</div>
         </div>
         <p>My first edit - Sydney Sweeney</p>
@@ -91,7 +92,8 @@
     <p>© 2026 EditPro</p>
 </footer>
 
-<script src="{{ url_for('static', filename='script.js') }}"></script>
+<!-- Use relative path for JS -->
+<script src="script.js"></script>
 
 </body>
 </html>
