@@ -24,35 +24,24 @@
     <p>I create high-quality edits for creators, gamers, and businesses.</p>
 </section>
 
-<!-- ✅ PORTFOLIO -->
+<!-- ===== PORTFOLIO ===== -->
 <section id="portfolio">
     <h2>Portfolio</h2>
 
     <!-- Edit Pro text -->
     <div class="edit">
-        <p>My edits</p>
+        <p>My first edit - Sydney Sweeney</p>
     </div>
 
-    <!-- Container for all images -->
-    <div class="portfolio-images">
-
-        <!-- Example Image 1 -->
-        <div class="image-container">
-            <img src="{{ url_for('static', filename='sydney.jpg') }}" alt="Sydney Sweeney">
-            <a href="#" class="watermark openPopup" data-edit="Sydney Sweeney">GET</a>
-        </div>
-
-        <!-- Example Image 2 -->
-        <div class="image-container">
-            <img src="{{ url_for('static', filename='image2.jpg') }}" alt="Another Edit">
-            <a href="#" class="watermark openPopup" data-edit="Another Edit">GET</a>
-        </div>
-
-        <!-- Add more images as needed -->
+    <!-- Sydney image below the edit text -->
+    <div class="image-container">
+        <img src="{{ url_for('static', filename='sydney.jpg') }}" alt="Sydney Sweeney">
+        <div class="watermark" id="openPopup">GET</div>
     </div>
+
 </section>
 
-<!-- ✅ SERVICES -->
+<!-- ===== SERVICES ===== -->
 <section id="services">
     <h2>Services</h2>
 
@@ -78,21 +67,19 @@
     </div>
 </section>
 
-<!-- ✅ POPUP FORM -->
+<!-- ===== POPUP FORM ===== -->
 <div id="popupForm" class="popup">
     <div class="popup-content">
         <span id="closePopup">&times;</span>
         <h3>Get Your Edit</h3>
-        <p id="editNamePrompt">You are ordering: <strong></strong></p>
-        <form id="orderForm">
-            <input type="text" placeholder="Your Name" required>
-            <input type="email" placeholder="Your Email" required>
-            <textarea placeholder="Any details for this edit" required></textarea>
-            <button type="submit">Submit</button>
-        </form>
+        <input type="text" placeholder="Your Name">
+        <input type="email" placeholder="Your Email">
+        <textarea placeholder="What edit do you want?"></textarea>
+        <button>Submit</button>
     </div>
 </div>
 
+<!-- ===== CONTACT ===== -->
 <section id="contact">
     <h2>Contact Me</h2>
     <form>
@@ -103,39 +90,12 @@
     </form>
 </section>
 
+<!-- ===== FOOTER ===== -->
 <footer>
     <p>© 2026 EditPro</p>
 </footer>
 
 <script src="{{ url_for('static', filename='script.js') }}"></script>
-
-<script>
-// Open popup with selected edit
-const popup = document.getElementById("popupForm");
-const editNameField = document.querySelector("#editNamePrompt strong");
-
-document.querySelectorAll(".openPopup").forEach(btn => {
-    btn.addEventListener("click", function(e) {
-        e.preventDefault();
-        const editName = btn.getAttribute("data-edit");
-        editNameField.textContent = editName;
-        popup.style.display = "block";
-    });
-});
-
-// Close popup
-document.getElementById("closePopup").addEventListener("click", function() {
-    popup.style.display = "none";
-});
-
-// Optional: handle form submission (currently just prevents default)
-document.getElementById("orderForm").addEventListener("submit", function(e) {
-    e.preventDefault();
-    alert("Thank you! Your order for " + editNameField.textContent + " has been submitted.");
-    popup.style.display = "none";
-    this.reset();
-});
-</script>
 
 </body>
 </html>
