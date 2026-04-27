@@ -6,6 +6,9 @@
     <title>EditPro</title>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <!-- PayPal SDK -->
+    <script src="https://www.paypal.com/sdk/js?client-id=AsrFPJGgAg5IPzfHp8xHh7_up9s7Sc_NIhXRj7dUU7a1M0FbsAoOve7IQoKV0EAjpun9y6zk95eKfFoy&currency=USD"></script>
 </head>
 
 <body oncontextmenu="return false;">
@@ -19,6 +22,7 @@
     </nav>
 </header>
 
+<!-- ===== HERO ===== -->
 <section class="hero">
     <h2>Professional Video Editing</h2>
     <p>I create high-quality edits for creators, gamers, and businesses.</p>
@@ -33,19 +37,23 @@
         <!-- Sydney Edit -->
         <div class="edit">
             <div class="image-container">
-                <img src="{{ url_for('static', filename='sydney.jpg') }}" alt="Sydney Sweeney Edit">
-                <div class="watermark">GET</div>
+                <img src="{{ url_for('static', filename='sydney.jpg') }}" alt="Sydney Edit">
+                <div class="watermark">$5</div>
             </div>
             <p>Sydney Sweeney Edit</p>
+
+            <div id="paypal-sydney"></div>
         </div>
 
         <!-- Messi Edit -->
         <div class="edit">
             <div class="image-container">
                 <img src="{{ url_for('static', filename='messi.jpg') }}" alt="Messi Edit">
-                <div class="watermark">GET</div>
+                <div class="watermark">$5</div>
             </div>
             <p>Lionel Messi Edit</p>
+
+            <div id="paypal-messi"></div>
         </div>
 
     </div>
@@ -58,36 +66,24 @@
     <div class="card">
         <h3>Basic Edit</h3>
         <p>Simple cuts and clean edits</p>
-        <span>$10</span>
-        <button>Buy Now</button>
+        <span>$5</span>
+        <div id="paypal-basic"></div>
     </div>
 
     <div class="card">
         <h3>Advanced Edit</h3>
         <p>Transitions, effects & color grading</p>
         <span>$25</span>
-        <button>Buy Now</button>
+        <div id="paypal-advanced"></div>
     </div>
 
     <div class="card">
         <h3>Premium Edit</h3>
         <p>Special edits & extras</p>
         <span>$40</span>
-        <button>Buy Now</button>
+        <div id="paypal-premium"></div>
     </div>
 </section>
-
-<!-- ===== POPUP FORM ===== -->
-<div id="popupForm" class="popup">
-    <div class="popup-content">
-        <span id="closePopup">&times;</span>
-        <h3>Get Your Edit</h3>
-        <input type="text" placeholder="Your Name">
-        <input type="email" placeholder="Your Email">
-        <textarea placeholder="What edit do you want?"></textarea>
-        <button>Submit</button>
-    </div>
-</div>
 
 <!-- ===== CONTACT ===== -->
 <section id="contact">
@@ -105,7 +101,37 @@
     <p>© 2026 EditPro</p>
 </footer>
 
-<script src="{{ url_for('static', filename='script.js') }}"></script>
+<!-- ===== PAYPAL LOGIC ===== -->
+<script>
+function createPayPalButton(container, amount) {
+    paypal.Buttons({
+        createOrder: function(data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: amount
+                    }
+                }]
+            });
+        },
+
+        onApprove: function(data, actions) {
+            return actions.order.capture().then(function(details) {
+                alert('Payment successful! Thanks ' + details.payer.name.given_name);
+            });
+        }
+    }).render(container);
+}
+
+// Portfolio ($5 each)
+createPayPalButton('#paypal-sydney', '5');
+createPayPalButton('#paypal-messi', '5');
+
+// Services
+createPayPalButton('#paypal-basic', '5');
+createPayPalButton('#paypal-advanced', '25');
+createPayPalButton('#paypal-premium', '40');
+</script>
 
 </body>
 </html>
