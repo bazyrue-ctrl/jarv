@@ -2,11 +2,23 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background-image: url("static/images/blue.jpg");
+    background-image: url("static/images/blue.jpg"); /* keep your original bg */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     color: white;
+}
+
+/* Optional overlay for readability */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: -1;
 }
 
 /* ===== HEADER ===== */
@@ -15,7 +27,7 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 15px 30px;
-    background: rgba(0,0,0,0.6); /* original grey overlay */
+    background: rgba(0,0,0,0.6);
 }
 
 header h1 {
@@ -27,6 +39,7 @@ nav a {
     text-decoration: none;
     color: white;
     font-weight: bold;
+    transition: color 0.3s ease;
 }
 
 nav a:hover {
@@ -51,6 +64,7 @@ nav a:hover {
     font-size: 16px;
     border-radius: 6px;
     cursor: pointer;
+    transition: 0.3s;
 }
 
 .hero button:hover {
@@ -61,19 +75,17 @@ nav a:hover {
 #services {
     padding: 60px 20px;
     text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .card {
-    display: inline-block;
-    background: rgba(0,0,0,0.6); /* original grey overlay */
+    background: rgba(0,0,0,0.6);
     padding: 25px;
     margin: 15px;
     border-radius: 10px;
     width: 220px;
-}
-
-.card h3 {
-    margin-top: 0;
 }
 
 .card span {
@@ -89,52 +101,74 @@ nav a:hover {
     color: white;
     border-radius: 5px;
     cursor: pointer;
+    transition: 0.3s;
 }
 
 .card button:hover {
     background: #0099cc;
 }
 
-/* ===== PORTFOLIO ===== */
+/* ===== PORTFOLIO (SHOP STYLE) ===== */
 #portfolio {
     padding: 60px 20px;
     text-align: center;
-    display: flex;
-    flex-direction: column; /* ensures image goes below Edit Pro */
-    align-items: center;
 }
 
 .edit {
-    background: rgba(0,0,0,0.6); /* grey overlay */
+    background: rgba(0,0,0,0.6);
     padding: 15px;
     border-radius: 10px;
     display: inline-block;
-    margin-bottom: 20px; /* small spacing above image */
+    margin-bottom: 30px;
 }
 
+/* Gallery layout */
+.gallery {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 25px;
+}
+
+/* Image cards */
 .image-container {
-    max-width: 300px;
-    margin: 0 auto;
+    width: 260px;
     position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    background: rgba(0,0,0,0.6);
+    padding: 10px;
 }
 
+/* Image */
 .image-container img {
     width: 100%;
-    height: auto;
     display: block;
     border-radius: 10px;
+    transition: transform 0.3s ease;
 }
 
+/* Hover zoom */
+.image-container:hover img {
+    transform: scale(1.05);
+}
+
+/* Buy/price tag */
 .watermark {
     position: absolute;
-    bottom: 10px;
-    right: 10px;
+    bottom: 15px;
+    right: 15px;
     background: #00c3ff;
-    padding: 6px 12px;
-    font-size: 12px;
-    border-radius: 5px;
+    padding: 8px 14px;
+    font-size: 13px;
+    border-radius: 6px;
     cursor: pointer;
     font-weight: bold;
+    transition: 0.3s;
+}
+
+.watermark:hover {
+    background: #0099cc;
 }
 
 /* ===== CONTACT ===== */
@@ -156,12 +190,17 @@ input, textarea {
     border: none;
 }
 
+input:focus, textarea:focus {
+    outline: 2px solid #00c3ff;
+}
+
 form button {
     padding: 12px;
     border: none;
     background: #00c3ff;
     color: white;
     cursor: pointer;
+    transition: 0.3s;
 }
 
 form button:hover {
@@ -172,5 +211,20 @@ form button:hover {
 footer {
     text-align: center;
     padding: 20px;
-    background: rgba(0,0,0,0.6); /* grey overlay */
+    background: rgba(0,0,0,0.6);
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 768px) {
+    .hero {
+        padding: 60px 15px;
+    }
+
+    .hero h2 {
+        font-size: 28px;
+    }
+
+    .image-container {
+        width: 90%;
+    }
 }
