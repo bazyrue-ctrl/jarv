@@ -41,7 +41,6 @@
                 <div class="watermark">$5</div>
             </div>
             <p>Sydney Sweeney Edit</p>
-
             <div id="paypal-sydney"></div>
         </div>
 
@@ -52,7 +51,6 @@
                 <div class="watermark">$5</div>
             </div>
             <p>Lionel Messi Edit</p>
-
             <div id="paypal-messi"></div>
         </div>
 
@@ -101,36 +99,40 @@
     <p>© 2026 EditPro</p>
 </footer>
 
-<!-- ===== PAYPAL LOGIC ===== -->
+<!-- ===== PAYPAL LOGIC (FIXED) ===== -->
 <script>
-function createPayPalButton(container, amount) {
-    paypal.Buttons({
-        createOrder: function(data, actions) {
-            return actions.order.create({
-                purchase_units: [{
-                    amount: {
-                        value: amount
-                    }
-                }]
-            });
-        },
+window.onload = function () {
 
-        onApprove: function(data, actions) {
-            return actions.order.capture().then(function(details) {
-                alert('Payment successful! Thanks ' + details.payer.name.given_name);
-            });
-        }
-    }).render(container);
-}
+    function createPayPalButton(container, amount) {
+        paypal.Buttons({
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: amount
+                        }
+                    }]
+                });
+            },
 
-// Portfolio ($5 each)
-createPayPalButton('#paypal-sydney', '5');
-createPayPalButton('#paypal-messi', '5');
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    alert('Payment successful! Thanks ' + details.payer.name.given_name);
+                });
+            }
+        }).render(container);
+    }
 
-// Services
-createPayPalButton('#paypal-basic', '5');
-createPayPalButton('#paypal-advanced', '25');
-createPayPalButton('#paypal-premium', '40');
+    // Portfolio
+    createPayPalButton('#paypal-sydney', '5');
+    createPayPalButton('#paypal-messi', '5');
+
+    // Services
+    createPayPalButton('#paypal-basic', '5');
+    createPayPalButton('#paypal-advanced', '25');
+    createPayPalButton('#paypal-premium', '40');
+
+};
 </script>
 
 </body>
