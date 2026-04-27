@@ -28,12 +28,26 @@
 <section id="portfolio">
     <h2>Portfolio</h2>
 
-    <div class="edit">
-        <div class="image-container">
-            <img src="{{ url_for('static', filename='sydney.jpg') }}" alt="Sydney Sweeney">
-            <div class="watermark" id="openPopup">GET</div>
+    <div class="gallery">
+
+        <!-- Sydney Edit -->
+        <div class="edit">
+            <div class="image-container">
+                <img src="{{ url_for('static', filename='sydney.jpg') }}" alt="Sydney Sweeney Edit">
+                <div class="watermark">GET</div>
+            </div>
+            <p>Sydney Sweeney Edit</p>
         </div>
-        <p>My first edit - Sydney Sweeney</p>
+
+        <!-- Messi Edit -->
+        <div class="edit">
+            <div class="image-container">
+                <img src="{{ url_for('static', filename='messi.jpg') }}" alt="Messi Edit">
+                <div class="watermark">GET</div>
+            </div>
+            <p>Lionel Messi Edit</p>
+        </div>
+
     </div>
 </section>
 
