@@ -1,4 +1,4 @@
-      <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,8 +7,16 @@
 
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
-    <!-- PAYPAL SDK (LIVE CLIENT ID) -->
-    <script src="https://www.paypal.com/sdk/js?client-id=EPtbutzhdqUPKJor-9aeV0lXR9HqTR8Fn4k4VZR4oFytmMiivT8lyr8ep2ic4rRk51uBRszYEv_jFrWscurrency=USD"></script>
+    <!-- PAYPAL SDK (FIXED) -->
+    <script src="https://www.paypal.com/sdk/js?client-id=EPtbutzhdqUPKJor-9aeV0lXR9HqTR8Fn4k4VZR4oFytmMiivT8lyr8ep2ic4rRk51uBRszYEv_jFrWs&currency=USD"></script>
+
+    <style>
+        /* ADD CONTAINER FIX */
+        .paypal-container {
+            margin-top: 10px;
+            min-height: 45px;
+        }
+    </style>
 </head>
 
 <body oncontextmenu="return false;">
@@ -34,24 +42,22 @@
 
     <div class="gallery">
 
-        <!-- Sydney -->
         <div class="edit">
             <div class="image-container">
                 <img src="{{ url_for('static', filename='sydney.jpg') }}" alt="Sydney Edit">
                 <div class="watermark">$5</div>
             </div>
             <p>Sydney Sweeney Edit</p>
-            <div id="paypal-sydney"></div>
+            <div id="paypal-sydney" class="paypal-container"></div>
         </div>
 
-        <!-- Messi -->
         <div class="edit">
             <div class="image-container">
                 <img src="{{ url_for('static', filename='messi.jpg') }}" alt="Messi Edit">
                 <div class="watermark">$5</div>
             </div>
             <p>Lionel Messi Edit</p>
-            <div id="paypal-messi"></div>
+            <div id="paypal-messi" class="paypal-container"></div>
         </div>
 
     </div>
@@ -65,21 +71,21 @@
         <h3>Basic Edit</h3>
         <p>Simple cuts and clean edits</p>
         <span>$5</span>
-        <div id="paypal-basic"></div>
+        <div id="paypal-basic" class="paypal-container"></div>
     </div>
 
     <div class="card">
         <h3>Advanced Edit</h3>
         <p>Transitions, effects & color grading</p>
         <span>$25</span>
-        <div id="paypal-advanced"></div>
+        <div id="paypal-advanced" class="paypal-container"></div>
     </div>
 
     <div class="card">
         <h3>Premium Edit</h3>
         <p>Special edits & extras</p>
         <span>$40</span>
-        <div id="paypal-premium"></div>
+        <div id="paypal-premium" class="paypal-container"></div>
     </div>
 </section>
 
@@ -94,14 +100,18 @@
     </form>
 </section>
 
-<!-- FOOTER -->
 <footer>
     <p>© 2026 EditPro</p>
 </footer>
 
-<!-- PAYPAL SCRIPT (FIXED WORKING VERSION) -->
+<!-- PAYPAL SCRIPT -->
 <script>
 window.addEventListener("load", function () {
+
+    if (!window.paypal) {
+        console.error("PayPal SDK failed to load");
+        return;
+    }
 
     function renderPayPal(id, amount) {
         paypal.Buttons({
@@ -141,4 +151,4 @@ window.addEventListener("load", function () {
 </script>
 
 </body>
-</html>  
+</html>
