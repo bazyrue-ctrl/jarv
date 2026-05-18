@@ -3,26 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>EditPro</title>
 
+    <!-- CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
-    <!-- PAYPAL SDK (FIXED) -->
-    <script src="https://www.paypal.com/sdk/js?client-id=EPtbutzhdqUPKJor-9aeV0lXR9HqTR8Fn4k4VZR4oFytmMiivT8lyr8ep2ic4rRk51uBRszYEv_jFrWs&currency=USD"></script>
+    <!-- Favicon -->
+    <link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}">
+
+    <!-- Mobile Theme -->
+    <meta name="theme-color" content="#00c3ff">
+
+    <!-- PAYPAL SDK -->
+    <!-- PUT YOUR CLIENT ID BELOW -->
+    <script src="https://www.paypal.com/sdk/js?client-id=Afu3wAry34DpyPB6bIOKQx00iskgeqFme0T207sWxulMAqGc_OPJu5wFVXwa7yswbpDp_er1FTGInDJo&currency=USD"></script>
 
     <style>
-        /* ADD CONTAINER FIX */
+
         .paypal-container {
-            margin-top: 10px;
+            margin-top: 15px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
             min-height: 45px;
         }
+
     </style>
 </head>
 
 <body oncontextmenu="return false;">
 
+<!-- HEADER -->
 <header>
     <h1>EditPro</h1>
+
     <nav>
         <a href="#portfolio">Portfolio</a>
         <a href="#services">Services</a>
@@ -33,121 +48,228 @@
 <!-- HERO -->
 <section class="hero">
     <h2>Professional Video Editing</h2>
-    <p>I create high-quality edits for creators, gamers, and businesses.</p>
+
+    <p>
+        I create high-quality edits for creators,
+        gamers, influencers, and businesses.
+    </p>
 </section>
 
 <!-- PORTFOLIO -->
 <section id="portfolio">
+
     <h2>Portfolio</h2>
 
     <div class="gallery">
 
+        <!-- SYDNEY -->
         <div class="edit">
+
             <div class="image-container">
-                <img src="{{ url_for('static', filename='sydney.jpg') }}" alt="Sydney Edit">
+
+                <img
+                    src="{{ url_for('static', filename='images/sydney.jpg') }}"
+                    alt="Sydney Edit"
+                >
+
                 <div class="watermark">$5</div>
+
             </div>
+
             <p>Sydney Sweeney Edit</p>
+
             <div id="paypal-sydney" class="paypal-container"></div>
+
         </div>
 
+        <!-- MESSI -->
         <div class="edit">
+
             <div class="image-container">
-                <img src="{{ url_for('static', filename='messi.jpg') }}" alt="Messi Edit">
+
+                <img
+                    src="{{ url_for('static', filename='images/messi.jpg') }}"
+                    alt="Messi Edit"
+                >
+
                 <div class="watermark">$5</div>
+
             </div>
+
             <p>Lionel Messi Edit</p>
+
             <div id="paypal-messi" class="paypal-container"></div>
+
         </div>
 
     </div>
+
 </section>
 
 <!-- SERVICES -->
 <section id="services">
+
     <h2>Services</h2>
 
+    <!-- BASIC -->
     <div class="card">
+
         <h3>Basic Edit</h3>
+
         <p>Simple cuts and clean edits</p>
+
         <span>$5</span>
+
         <div id="paypal-basic" class="paypal-container"></div>
+
     </div>
 
+    <!-- ADVANCED -->
     <div class="card">
+
         <h3>Advanced Edit</h3>
+
         <p>Transitions, effects & color grading</p>
+
         <span>$25</span>
+
         <div id="paypal-advanced" class="paypal-container"></div>
+
     </div>
 
+    <!-- PREMIUM -->
     <div class="card">
+
         <h3>Premium Edit</h3>
-        <p>Special edits & extras</p>
+
+        <p>Special effects, cinematic editing & extras</p>
+
         <span>$40</span>
+
         <div id="paypal-premium" class="paypal-container"></div>
+
     </div>
+
 </section>
 
 <!-- CONTACT -->
 <section id="contact">
+
     <h2>Contact Me</h2>
+
     <form>
-        <input type="text" placeholder="Your Name" required>
-        <input type="email" placeholder="Your Email" required>
-        <textarea placeholder="What edit do you need?"></textarea>
-        <button type="submit">Send</button>
+
+        <input
+            type="text"
+            placeholder="Your Name"
+            required
+        >
+
+        <input
+            type="email"
+            placeholder="Your Email"
+            required
+        >
+
+        <textarea
+            placeholder="What edit do you need?"
+        ></textarea>
+
+        <button type="submit">
+            Send
+        </button>
+
     </form>
+
 </section>
 
+<!-- FOOTER -->
 <footer>
+
     <p>© 2026 EditPro</p>
+
 </footer>
 
 <!-- PAYPAL SCRIPT -->
 <script>
+
 window.addEventListener("load", function () {
 
+    // CHECK SDK
     if (!window.paypal) {
+
         console.error("PayPal SDK failed to load");
+
         return;
     }
 
+    // FUNCTION
     function renderPayPal(id, amount) {
+
         paypal.Buttons({
 
+            style: {
+                color: "blue",
+                shape: "pill",
+                label: "pay",
+                height: 40
+            },
+
             createOrder: function(data, actions) {
+
                 return actions.order.create({
+
                     purchase_units: [{
-                        amount: { value: amount }
+
+                        amount: {
+                            value: amount
+                        }
+
                     }]
+
                 });
+
             },
 
             onApprove: function(data, actions) {
+
                 return actions.order.capture().then(function(details) {
-                    alert("Payment successful! Thanks " + details.payer.name.given_name);
+
+                    alert(
+                        "Payment successful! Thanks "
+                        + details.payer.name.given_name
+                    );
+
+                    // OPTIONAL REDIRECT
+                    // window.location.href = "/success";
+
                 });
+
             },
 
             onError: function(err) {
+
                 console.error("PayPal Error:", err);
+
                 alert("Payment failed. Check console.");
+
             }
 
         }).render(id);
+
     }
 
-    // Portfolio
+    // PORTFOLIO
     renderPayPal("#paypal-sydney", "5");
     renderPayPal("#paypal-messi", "5");
 
-    // Services
+    // SERVICES
     renderPayPal("#paypal-basic", "5");
     renderPayPal("#paypal-advanced", "25");
     renderPayPal("#paypal-premium", "40");
 
 });
+
 </script>
 
 </body>
