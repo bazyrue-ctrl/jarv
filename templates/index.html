@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,26 +14,15 @@
 
     <meta name="theme-color" content="#00c3ff">
 
-    <!-- PAYPAL SDK (SAFE LOADING) -->
-    <script
-        src="https://www.paypal.com/sdk/js?client-id=Afu3wAry34DpyPB6bIOKQx00iskgeqFme0T207sWxulMAqGc_OPJu5wFVXwa7yswbpDp_er1FTGInDJo&currency=USD"
-        onload="window.paypalLoaded = true"
-        onerror="console.error('PayPal failed to load')">
-    </script>
+    <!-- PAYPAL SDK -->
+    <script src="https://www.paypal.com/sdk/js?client-id=Afu3wAry34DpyPB6bIOKQx00iskgeqFme0T207sWxulMAqGc_OPJu5wFVXwa7yswbpDp_er1FTGInDJo&currency=USD"></script>
 
     <style>
         .paypal-container {
             margin-top: 15px;
-            width: 100%;
             display: flex;
             justify-content: center;
             min-height: 45px;
-        }
-
-        .image-container img {
-            width: 100%;
-            max-width: 400px;
-            display: block;
         }
 
         .gallery {
@@ -48,13 +36,27 @@
             padding: 15px;
             border-radius: 10px;
         }
+
+        .image-container img {
+            width: 100%;
+            max-width: 400px;
+            display: block;
+        }
+
+        header, section, footer {
+            max-width: 1000px;
+            margin: auto;
+            padding: 20px;
+        }
     </style>
 </head>
 
 <body oncontextmenu="return false;">
 
+<!-- HEADER -->
 <header>
     <h1>EditPro</h1>
+
     <nav>
         <a href="#portfolio">Portfolio</a>
         <a href="#services">Services</a>
@@ -62,12 +64,13 @@
     </nav>
 </header>
 
+<!-- HERO -->
 <section class="hero">
     <h2>Professional Video Editing</h2>
     <p>I create high-quality edits for creators, gamers, influencers, and businesses.</p>
 </section>
 
-<!-- PORTFOLIO -->
+<!-- PORTFOLIO (NO PAYMENTS) -->
 <section id="portfolio">
 
     <h2>Portfolio</h2>
@@ -80,7 +83,6 @@
                 <div class="watermark">$5</div>
             </div>
             <p>Sydney Sweeney Edit</p>
-            <div id="paypal-sydney" class="paypal-container"></div>
         </div>
 
         <div class="edit">
@@ -89,17 +91,17 @@
                 <div class="watermark">$5</div>
             </div>
             <p>Lionel Messi Edit</p>
-            <div id="paypal-messi" class="paypal-container"></div>
         </div>
 
     </div>
 </section>
 
-<!-- SERVICES -->
+<!-- SERVICES (PAYPAL ONLY HERE) -->
 <section id="services">
 
     <h2>Services</h2>
 
+    <!-- BASIC -->
     <div class="card">
         <h3>Basic Edit</h3>
         <p>Simple cuts and clean edits</p>
@@ -107,16 +109,18 @@
         <div id="paypal-basic" class="paypal-container"></div>
     </div>
 
+    <!-- STANDARD -->
     <div class="card">
-        <h3>Advanced Edit</h3>
+        <h3>Standard Edit</h3>
         <p>Transitions, effects & color grading</p>
         <span>$25</span>
-        <div id="paypal-advanced" class="paypal-container"></div>
+        <div id="paypal-standard" class="paypal-container"></div>
     </div>
 
+    <!-- PREMIUM -->
     <div class="card">
         <h3>Premium Edit</h3>
-        <p>Cinematic editing & effects</p>
+        <p>Cinematic editing, advanced effects & extras</p>
         <span>$40</span>
         <div id="paypal-premium" class="paypal-container"></div>
     </div>
@@ -137,18 +141,17 @@
 
 </section>
 
+<!-- FOOTER -->
 <footer>
     <p>© 2026 EditPro</p>
 </footer>
 
-<!-- PAYPAL SCRIPT (SAFE RENDERING) -->
+<!-- PAYPAL SCRIPT -->
 <script>
 function renderPayPal(id, amount) {
 
     const container = document.querySelector(id);
-    if (!container) return;
-
-    container.innerHTML = "";
+    if (!container || !window.paypal) return;
 
     paypal.Buttons({
 
@@ -180,23 +183,18 @@ function renderPayPal(id, amount) {
     }).render(container);
 }
 
-function initPayPal() {
+window.addEventListener("load", function () {
 
     if (!window.paypal) {
-        console.warn("PayPal not loaded yet, retrying...");
-        setTimeout(initPayPal, 300);
+        console.error("PayPal SDK not loaded");
         return;
     }
 
-    renderPayPal("#paypal-sydney", "5");
-    renderPayPal("#paypal-messi", "5");
-
     renderPayPal("#paypal-basic", "5");
-    renderPayPal("#paypal-advanced", "25");
+    renderPayPal("#paypal-standard", "25");
     renderPayPal("#paypal-premium", "40");
-}
 
-window.addEventListener("load", initPayPal);
+});
 </script>
 
 </body>
