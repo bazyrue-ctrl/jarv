@@ -2,7 +2,10 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background-image: url("static/images/blue.jpg"); /* keep your original bg */
+
+    /* FIX: Flask-safe absolute path */
+    background-image: url("/static/images/blue.jpg");
+
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -108,7 +111,7 @@ nav a:hover {
     background: #0099cc;
 }
 
-/* ===== PORTFOLIO (SHOP STYLE) ===== */
+/* ===== PORTFOLIO ===== */
 #portfolio {
     padding: 60px 20px;
     text-align: center;
@@ -143,6 +146,7 @@ nav a:hover {
 /* Image */
 .image-container img {
     width: 100%;
+    height: auto;
     display: block;
     border-radius: 10px;
     transition: transform 0.3s ease;
@@ -153,7 +157,7 @@ nav a:hover {
     transform: scale(1.05);
 }
 
-/* Buy/price tag */
+/* Price tag */
 .watermark {
     position: absolute;
     bottom: 15px;
