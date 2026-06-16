@@ -70,13 +70,14 @@
     <p>I create high-quality edits for creators, gamers, influencers, and businesses.</p>
 </section>
 
-<!-- PORTFOLIO (NO PAYMENTS) -->
+<!-- PORTFOLIO -->
 <section id="portfolio">
 
     <h2>Portfolio</h2>
 
     <div class="gallery">
 
+        <!-- Sydney Sweeney -->
         <div class="edit">
             <div class="image-container">
                 <img src="{{ url_for('static', filename='images/sydney.jpg') }}" alt="Sydney Edit">
@@ -85,6 +86,7 @@
             <p>Sydney Sweeney Edit</p>
         </div>
 
+        <!-- Messi -->
         <div class="edit">
             <div class="image-container">
                 <img src="{{ url_for('static', filename='images/messi.jpg') }}" alt="Messi Edit">
@@ -93,15 +95,26 @@
             <p>Lionel Messi Edit</p>
         </div>
 
+        <!-- PLANNER -->
+        <div class="edit">
+            <div class="image-container">
+                <img src="{{ url_for('static', filename='images/PLANNER.png') }}" alt="Content Planner">
+                <div class="watermark">$400</div>
+            </div>
+            <p>Content Planner Tool</p>
+
+            <!-- PayPal Button -->
+            <div id="paypal-planner" class="paypal-container"></div>
+        </div>
+
     </div>
 </section>
 
-<!-- SERVICES (PAYPAL ONLY HERE) -->
+<!-- SERVICES -->
 <section id="services">
 
     <h2>Services</h2>
 
-    <!-- BASIC -->
     <div class="card">
         <h3>Basic Edit</h3>
         <p>Simple cuts and clean edits</p>
@@ -109,7 +122,6 @@
         <div id="paypal-basic" class="paypal-container"></div>
     </div>
 
-    <!-- STANDARD -->
     <div class="card">
         <h3>Standard Edit</h3>
         <p>Transitions, effects & color grading</p>
@@ -117,7 +129,6 @@
         <div id="paypal-standard" class="paypal-container"></div>
     </div>
 
-    <!-- PREMIUM -->
     <div class="card">
         <h3>Premium Edit</h3>
         <p>Cinematic editing, advanced effects & extras</p>
@@ -193,6 +204,7 @@ window.addEventListener("load", function () {
     renderPayPal("#paypal-basic", "5");
     renderPayPal("#paypal-standard", "25");
     renderPayPal("#paypal-premium", "40");
+    renderPayPal("#paypal-planner", "400");
 
 });
 </script>
