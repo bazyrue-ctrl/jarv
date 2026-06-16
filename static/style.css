@@ -3,7 +3,6 @@ body {
     margin: 0;
     font-family: Arial, sans-serif;
 
-    /* FIX: Flask-safe absolute path */
     background-image: url("/static/images/blue.jpg");
 
     background-size: cover;
@@ -231,4 +230,30 @@ footer {
     .image-container {
         width: 90%;
     }
+}
+
+/* ===== PLANNER (PREMIUM PRODUCT) ===== */
+
+.edit.planner {
+    border: 2px solid #00c3ff;
+    box-shadow: 0 0 25px rgba(0, 195, 255, 0.35);
+    transform: scale(1.03);
+    transition: 0.3s ease;
+}
+
+.edit.planner:hover {
+    transform: scale(1.07);
+}
+
+.edit.planner .image-container img {
+    border-radius: 12px;
+}
+
+.edit.planner .watermark {
+    background: linear-gradient(45deg, #00c3ff, #0055ff);
+    font-weight: bold;
+}
+
+.edit.planner .paypal-container {
+    margin-top: 12px;
 }
