@@ -77,11 +77,16 @@
     </nav>
 </header>
 
+
 <!-- HERO -->
 <section class="hero">
+
     <h2>Professional Video Editing</h2>
+
     <p>I create high-quality edits for creators, gamers, influencers, and businesses.</p>
+
 </section>
+
 
 <!-- PORTFOLIO -->
 <section id="portfolio">
@@ -90,38 +95,50 @@
 
 <div class="gallery">
 
-    <!-- Sydney Sweeney -->
     <div class="edit">
+
         <div class="image-container">
+
             <img src="{{ url_for('static', filename='images/sydney.jpg') }}" alt="Sydney Edit">
+
             <div class="watermark">$10</div>
+
         </div>
 
         <p>Sydney Sweeney Edit</p>
+
     </div>
 
 
-    <!-- Messi -->
     <div class="edit">
+
         <div class="image-container">
+
             <img src="{{ url_for('static', filename='images/messi.jpg') }}" alt="Messi Edit">
+
             <div class="watermark">$10 - $50</div>
+
         </div>
 
         <p>Lionel Messi Edit</p>
+
     </div>
 
 
-    <!-- PLANNER -->
     <div class="edit">
+
         <div class="image-container">
+
             <img src="{{ url_for('static', filename='images/PLANNER.png') }}" alt="Content Planner">
+
             <div class="watermark">$400</div>
+
         </div>
 
         <p>Content Planner Tool</p>
 
         <div id="paypal-planner" class="paypal-container"></div>
+
     </div>
 
 </div>
@@ -133,6 +150,7 @@
 <section id="services">
 
 <h2>Services</h2>
+
 
 <div class="card">
 
@@ -169,19 +187,26 @@
     <span>$40</span>
 
     <div id="paypal-premium" class="paypal-container"></div>
-    <!-- M-PESA PAYMENT -->
 
-<div class="card">
+</div>
+
+<!-- M-PESA PAYMENT -->
+
+<div class="card mpesa-card">
 
     <h3>M-Pesa Payment</h3>
 
     <p>Pay easily using M-Pesa.</p>
 
-    <p><strong>Phone Number:</strong> +25470467254</p>
+    <p><strong>Phone Number:</strong><br>
+    +254704167254</p>
 
-    <p><strong>Name:</strong> Your Name</p>
+    <p><strong>Name:</strong><br>
+    Your Name</p>
 
-    <p>After payment, send the M-Pesa confirmation code through the contact form.</p>
+    <p>
+        After payment, send the M-Pesa confirmation code through the contact form.
+    </p>
 
 </div>
 
@@ -231,15 +256,10 @@ function renderPayPal(id, amount) {
     paypal.Buttons({
 
         style: {
-
             color: "blue",
-
             shape: "pill",
-
             label: "pay",
-
             height: 40
-
         },
 
 
@@ -281,9 +301,7 @@ function renderPayPal(id, amount) {
 }
 
 
-
 window.addEventListener("load", function () {
-
 
     if (!window.paypal) {
 
@@ -302,7 +320,6 @@ window.addEventListener("load", function () {
 
     renderPayPal("#paypal-planner", "400");
 
-
 });
 
 
@@ -310,9 +327,10 @@ window.addEventListener("load", function () {
 
 
 </body>
-
 </html>
-  
-    
 
-</div>
+
+
+
+
+    
