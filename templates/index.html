@@ -6,18 +6,16 @@
 
     <title>EditPro</title>
 
-    <!-- CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
-    <!-- Favicon -->
     <link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}">
 
     <meta name="theme-color" content="#00c3ff">
 
-    <!-- PAYPAL SDK -->
     <script src="https://www.paypal.com/sdk/js?client-id=Afu3wAry34DpyPB6bIOKQx00iskgeqFme0T207sWxulMAqGc_OPJu5wFVXwa7yswbpDp_er1FTGInDJo&currency=USD"></script>
 
     <style>
+
         .paypal-container {
             margin-top: 15px;
             display: flex;
@@ -56,18 +54,23 @@
             align-items: center;
         }
 
+        /* Service cards now match Sydney/Messi card size */
         #services .card {
-            width: 100%;
-            max-width: 500px;
+            width: 300px;
+            max-width: 100%;
             margin-bottom: 20px;
         }
+
     </style>
+
 </head>
+
 
 <body oncontextmenu="return false;">
 
-<!-- HEADER -->
+
 <header>
+
     <h1>EditPro</h1>
 
     <nav>
@@ -75,10 +78,10 @@
         <a href="#services">Services</a>
         <a href="#contact">Contact</a>
     </nav>
+
 </header>
 
 
-<!-- HERO -->
 <section class="hero">
 
     <h2>Professional Video Editing</h2>
@@ -88,12 +91,15 @@
 </section>
 
 
-<!-- PORTFOLIO -->
 <section id="portfolio">
 
 <h2>Portfolio</h2>
 
+
 <div class="gallery">
+
+
+    <!-- Sydney Sweeney -->
 
     <div class="edit">
 
@@ -110,6 +116,9 @@
     </div>
 
 
+
+    <!-- Messi -->
+
     <div class="edit">
 
         <div class="image-container">
@@ -125,6 +134,9 @@
     </div>
 
 
+
+    <!-- Planner -->
+
     <div class="edit">
 
         <div class="image-container">
@@ -135,64 +147,77 @@
 
         </div>
 
+
         <p>Content Planner Tool</p>
+
 
         <div id="paypal-planner" class="paypal-container"></div>
 
+
     </div>
 
+
 </div>
+
 
 </section>
 
 
+
 <!-- SERVICES -->
+
 <section id="services">
+
 
 <h2>Services</h2>
 
 
 <div class="card">
 
-    <h3>Basic Edit</h3>
 
-    <p>Simple cuts and clean edits</p>
+<h3>Basic Edit</h3>
 
-    <span>$10</span>
+<p>Simple cuts and clean edits</p>
 
-    <div id="paypal-basic" class="paypal-container"></div>
+<span>$10</span>
+
+<div id="paypal-basic" class="paypal-container"></div>
+
 
 </div>
+
 
 
 <div class="card">
 
-    <h3>Standard Edit</h3>
 
-    <p>Transitions, effects & color grading</p>
+<h3>Standard Edit</h3>
 
-    <span>$25</span>
+<p>Transitions, effects & color grading</p>
 
-    <div id="paypal-standard" class="paypal-container"></div>
+<span>$25</span>
+
+<div id="paypal-standard" class="paypal-container"></div>
+
 
 </div>
+
 
 
 <div class="card">
 
-    <h3>Premium Edit</h3>
 
-    <p>Cinematic editing, advanced effects & extras</p>
+<h3>Premium Edit</h3>
 
-    <span>$40</span>
+<p>Cinematic editing, advanced effects & extras</p>
 
-    <div id="paypal-premium" class="paypal-container"></div>
+<span>$40</span>
 
-</div>
+<div id="paypal-premium" class="paypal-container"></div>
 
 <!-- M-PESA PAYMENT -->
 
-<div class="card mpesa-card">
+<div class="card">
 
     <h3>M-Pesa Payment</h3>
 
@@ -215,9 +240,11 @@
 
 
 <!-- CONTACT -->
+
 <section id="contact">
 
     <h2>Contact Me</h2>
+
 
     <form>
 
@@ -231,15 +258,19 @@
 
     </form>
 
+
 </section>
 
 
+
 <!-- FOOTER -->
+
 <footer>
 
     <p>© 2026 EditPro</p>
 
 </footer>
+
 
 
 <!-- PAYPAL SCRIPT -->
@@ -256,10 +287,15 @@ function renderPayPal(id, amount) {
     paypal.Buttons({
 
         style: {
+
             color: "blue",
+
             shape: "pill",
+
             label: "pay",
+
             height: 40
+
         },
 
 
@@ -301,7 +337,9 @@ function renderPayPal(id, amount) {
 }
 
 
+
 window.addEventListener("load", function () {
+
 
     if (!window.paypal) {
 
@@ -320,6 +358,7 @@ window.addEventListener("load", function () {
 
     renderPayPal("#paypal-planner", "400");
 
+
 });
 
 
@@ -328,9 +367,8 @@ window.addEventListener("load", function () {
 
 </body>
 </html>
-
-
-
-
-
     
+    
+
+
+</div>
