@@ -1,30 +1,213 @@
-<!-- M-PESA SECTION -->
-<div class="mpesa-box">
-    <h3>Pay with M-PESA</h3>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <p>Send payment to:</p>
+    <title>EditPro</title>
 
-    <p class="mpesa-number">0704167254</p>
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
-    <p><strong>Name:</strong> YOUR NAME</p>
+    <!-- Favicon -->
+    <link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}">
 
-    <button
-        style="
-            background:#34b233;
-            color:white;
-            border:none;
-            padding:14px 28px;
-            border-radius:8px;
-            font-size:16px;
-            font-weight:bold;
-            cursor:pointer;
-            margin-top:15px;
-        "
-        onclick="alert('Open M-PESA on your phone and send payment to: YOUR MPESA NUMBER');">
-        Pay with M-PESA
-    </button>
+    <meta name="theme-color" content="#00c3ff">
 
-    <p style="margin-top:15px;">
-        After payment, contact me using the form below and include your M-PESA confirmation message.
-    </p>
-</div>
+    <!-- PAYPAL SDK -->
+    <script src="https://www.paypal.com/sdk/js?client-id=Afu3wAry34DpyPB6bIOKQx00iskgeqFme0T207sWxulMAqGc_OPJu5wFVXwa7yswbpDp_er1FTGInDJo&currency=USD"></script>
+
+    <style>
+        .paypal-container {
+            margin-top: 15px;
+            display: flex;
+            justify-content: center;
+            min-height: 45px;
+        }
+
+        .gallery {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .edit, .card {
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .image-container img {
+            width: 100%;
+            max-width: 400px;
+            display: block;
+        }
+
+        header, section, footer {
+            max-width: 1000px;
+            margin: auto;
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body oncontextmenu="return false;">
+
+<!-- HEADER -->
+<header>
+    <h1>EditPro</h1>
+
+    <nav>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+    </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+    <h2>Professional Video Editing</h2>
+    <p>I create high-quality edits for creators, gamers, influencers, and businesses.</p>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+
+    <h2>Portfolio</h2>
+
+    <div class="gallery">
+
+        <!-- Sydney Sweeney -->
+        <div class="edit">
+            <div class="image-container">
+                <img src="{{ url_for('static', filename='images/sydney.jpg') }}" alt="Sydney Edit">
+                <div class="watermark">$5</div>
+            </div>
+            <p>Sydney Sweeney Edit</p>
+        </div>
+
+        <!-- Messi -->
+        <div class="edit">
+            <div class="image-container">
+                <img src="{{ url_for('static', filename='images/messi.jpg') }}" alt="Messi Edit">
+                <div class="watermark">$5</div>
+            </div>
+            <p>Lionel Messi Edit</p>
+        </div>
+
+        <!-- PLANNER -->
+        <div class="edit">
+            <div class="image-container">
+                <img src="{{ url_for('static', filename='images/PLANNER.png') }}" alt="Content Planner">
+                <div class="watermark">$400</div>
+            </div>
+            <p>Content Planner Tool</p>
+
+            <!-- PayPal Button -->
+            <div id="paypal-planner" class="paypal-container"></div>
+        </div>
+
+    </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+
+    <h2>Services</h2>
+
+    <div class="card">
+        <h3>Basic Edit</h3>
+        <p>Simple cuts and clean edits</p>
+        <span>$5</span>
+        <div id="paypal-basic" class="paypal-container"></div>
+    </div>
+
+    <div class="card">
+        <h3>Standard Edit</h3>
+        <p>Transitions, effects & color grading</p>
+        <span>$25</span>
+        <div id="paypal-standard" class="paypal-container"></div>
+    </div>
+
+    <div class="card">
+        <h3>Premium Edit</h3>
+        <p>Cinematic editing, advanced effects & extras</p>
+        <span>$40</span>
+        <div id="paypal-premium" class="paypal-container"></div>
+    </div>
+
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+
+    <h2>Contact Me</h2>
+
+    <form>
+        <input type="text" placeholder="Your Name" required>
+        <input type="email" placeholder="Your Email" required>
+        <textarea placeholder="What edit do you need?"></textarea>
+        <button type="submit">Send</button>
+    </form>
+
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <p>© 2026 EditPro</p>
+</footer>
+
+<!-- PAYPAL SCRIPT -->
+<script>
+function renderPayPal(id, amount) {
+
+    const container = document.querySelector(id);
+    if (!container || !window.paypal) return;
+
+    paypal.Buttons({
+
+        style: {
+            color: "blue",
+            shape: "pill",
+            label: "pay",
+            height: 40
+        },
+
+        createOrder: (data, actions) => {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: { value: amount }
+                }]
+            });
+        },
+
+        onApprove: (data, actions) => {
+            return actions.order.capture().then(details => {
+                alert("Payment successful! Thanks " + details.payer.name.given_name);
+            });
+        },
+
+        onError: (err) => {
+            console.error("PayPal Error:", err);
+        }
+
+    }).render(container);
+}
+
+window.addEventListener("load", function () {
+
+    if (!window.paypal) {
+        console.error("PayPal SDK not loaded");
+        return;
+    }
+
+    renderPayPal("#paypal-basic", "5");
+    renderPayPal("#paypal-standard", "25");
+    renderPayPal("#paypal-premium", "40");
+    renderPayPal("#paypal-planner", "400");
+
+});
+</script>
+
+</body>
+</html>
