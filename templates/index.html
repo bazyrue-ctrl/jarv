@@ -14,7 +14,6 @@
 
 <script src="https://www.paypal.com/sdk/js?client-id=Afu3wAry34DpyPB6bIOKQx00iskgeqFme0T207sWxulMAqGc_OPJu5wFVXwa7yswbpDp_er1FTGInDJo&currency=USD"></script>
 
-
 <style>
 
 .paypal-container {
@@ -24,7 +23,6 @@
     min-height:45px;
 }
 
-
 .gallery {
     display:flex;
     gap:20px;
@@ -32,8 +30,6 @@
     justify-content:center;
 }
 
-
-/* SAME SIZE FOR ALL BOXES */
 .edit, .card {
     width:300px;
     max-width:90%;
@@ -43,13 +39,11 @@
     border-radius:10px;
 }
 
-
 .image-container img {
     width:100%;
     max-width:400px;
     display:block;
 }
-
 
 header, section, footer {
     max-width:1000px;
@@ -57,35 +51,34 @@ header, section, footer {
     padding:20px;
 }
 
-
 #services {
     display:flex;
     flex-direction:column;
     align-items:center;
 }
 
-
 #services .card {
     margin-bottom:20px;
 }
-
 
 .mpesa-card {
     overflow-wrap:break-word;
     word-wrap:break-word;
 }
 
-
 .mpesa-text {
     font-size:14px;
     line-height:1.4;
 }
 
+/* Content Planner blur only */
+.planner-blur {
+    filter: blur(5px);
+}
 
 </style>
 
 </head>
-
 
 <body oncontextmenu="return false;">
 
@@ -105,7 +98,6 @@ header, section, footer {
 </header>
 
 
-
 <section class="hero">
 
 <h2>Professional Video Editing</h2>
@@ -115,11 +107,9 @@ header, section, footer {
 </section>
 
 
-
 <section id="portfolio">
 
 <h2>Portfolio</h2>
-
 
 <div class="gallery">
 
@@ -160,34 +150,27 @@ header, section, footer {
 
 <div class="image-container">
 
-<img src="{{ url_for('static', filename='images/PLANNER.png') }}" alt="Content Planner">
+<img class="planner-blur" src="{{ url_for('static', filename='images/PLANNER.png') }}" alt="Content Planner">
 
 <div class="watermark">$400</div>
 
 </div>
 
-
 <p>Content Planner Tool</p>
-
 
 <div id="paypal-planner" class="paypal-container"></div>
 
-
 </div>
 
 
 </div>
-
 
 </section>
 
 
-
 <section id="services">
 
-
 <h2>Services</h2>
-
 
 
 <div class="card">
@@ -203,7 +186,6 @@ header, section, footer {
 </div>
 
 
-
 <div class="card">
 
 <h3>Standard Edit</h3>
@@ -215,7 +197,6 @@ header, section, footer {
 <div id="paypal-standard" class="paypal-container"></div>
 
 </div>
-
 
 
 <div class="card">
@@ -230,27 +211,27 @@ header, section, footer {
 
 </div>
 
- <!-- M-PESA PAYMENT -->
+    <!-- M-PESA PAYMENT -->
 
 <div class="card mpesa-card">
 
-    <h3>M-Pesa Payment</h3>
+<h3>M-Pesa Payment</h3>
 
-    <p>Pay easily using M-Pesa.</p>
+<p>Pay easily using M-Pesa.</p>
 
-    <p>
-        <strong>Phone Number:</strong><br>
-        +254704167254
-    </p>
+<p>
+<strong>Phone Number:</strong><br>
++254704167254
+</p>
 
-    <p>
-        <strong>Name:</strong><br>
-        Your Name
-    </p>
+<p>
+<strong>Name:</strong><br>
+Your Name
+</p>
 
-    <p class="mpesa-text">
-        After payment, send the M-Pesa confirmation code through the contact form.
-    </p>
+<p class="mpesa-text">
+After payment, send the M-Pesa confirmation code through the contact form.
+</p>
 
 </div>
 
@@ -279,6 +260,7 @@ header, section, footer {
 
 </form>
 
+
 </section>
 
 
@@ -293,67 +275,66 @@ header, section, footer {
 
 
 
-
 <!-- PAYPAL SCRIPT -->
 
 <script>
 
 function renderPayPal(id, amount) {
 
-    const container = document.querySelector(id);
+const container = document.querySelector(id);
 
-    if (!container || !window.paypal) return;
-
-
-    paypal.Buttons({
-
-        style: {
-
-            color:"blue",
-
-            shape:"pill",
-
-            label:"pay",
-
-            height:40
-
-        },
+if (!container || !window.paypal) return;
 
 
-        createOrder:(data, actions)=>{
+paypal.Buttons({
 
-            return actions.order.create({
+style: {
 
-                purchase_units:[{
+color:"blue",
 
-                    amount:{value:amount}
+shape:"pill",
 
-                }]
+label:"pay",
 
-            });
+height:40
 
-        },
-
-
-        onApprove:(data, actions)=>{
-
-            return actions.order.capture().then(details=>{
-
-                alert("Payment successful! Thanks " + details.payer.name.given_name);
-
-            });
-
-        },
+},
 
 
-        onError:(err)=>{
+createOrder:(data, actions)=>{
 
-            console.error("PayPal Error:", err);
+return actions.order.create({
 
-        }
+purchase_units:[{
+
+amount:{value:amount}
+
+}]
+
+});
+
+},
 
 
-    }).render(container);
+onApprove:(data, actions)=>{
+
+return actions.order.capture().then(details=>{
+
+alert("Payment successful! Thanks " + details.payer.name.given_name);
+
+});
+
+},
+
+
+onError:(err)=>{
+
+console.error("PayPal Error:", err);
+
+}
+
+
+}).render(container);
 
 }
 
@@ -362,22 +343,22 @@ function renderPayPal(id, amount) {
 window.addEventListener("load", function(){
 
 
-    if(!window.paypal){
+if(!window.paypal){
 
-        console.error("PayPal SDK not loaded");
+console.error("PayPal SDK not loaded");
 
-        return;
+return;
 
-    }
+}
 
 
-    renderPayPal("#paypal-basic","10");
+renderPayPal("#paypal-basic","10");
 
-    renderPayPal("#paypal-standard","25");
+renderPayPal("#paypal-standard","25");
 
-    renderPayPal("#paypal-premium","40");
+renderPayPal("#paypal-premium","40");
 
-    renderPayPal("#paypal-planner","400");
+renderPayPal("#paypal-planner","400");
 
 
 });
@@ -387,7 +368,4 @@ window.addEventListener("load", function(){
 
 
 </body>
-</html>   
-    
-
-    
+</html>
