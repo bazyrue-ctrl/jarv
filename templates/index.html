@@ -1,67 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>EditPro</title>
+<title>EditPro</title>
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
-    <link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}">
+<link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}">
 
-    <meta name="theme-color" content="#00c3ff">
+<meta name="theme-color" content="#00c3ff">
 
-    <script src="https://www.paypal.com/sdk/js?client-id=Afu3wAry34DpyPB6bIOKQx00iskgeqFme0T207sWxulMAqGc_OPJu5wFVXwa7yswbpDp_er1FTGInDJo&currency=USD"></script>
+<script src="https://www.paypal.com/sdk/js?client-id=Afu3wAry34DpyPB6bIOKQx00iskgeqFme0T207sWxulMAqGc_OPJu5wFVXwa7yswbpDp_er1FTGInDJo&currency=USD"></script>
 
-    <style>
 
-        .paypal-container {
-            margin-top: 15px;
-            display: flex;
-            justify-content: center;
-            min-height: 45px;
-        }
+<style>
 
-        .gallery {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
+.paypal-container {
+    margin-top:15px;
+    display:flex;
+    justify-content:center;
+    min-height:45px;
+}
 
-        .edit, .card {
-            border: 1px solid #ddd;
-            padding: 15px;
-            border-radius: 10px;
-        }
 
-        .image-container img {
-            width: 100%;
-            max-width: 400px;
-            display: block;
-        }
+.gallery {
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
+    justify-content:center;
+}
 
-        header, section, footer {
-            max-width: 1000px;
-            margin: auto;
-            padding: 20px;
-        }
 
-        #services {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+/* SAME SIZE FOR ALL BOXES */
+.edit, .card {
+    width:300px;
+    max-width:90%;
+    box-sizing:border-box;
+    border:1px solid #ddd;
+    padding:15px;
+    border-radius:10px;
+}
 
-        /* Service cards now match Sydney/Messi card size */
-        #services .card {
-            width: 300px;
-            max-width: 100%;
-            margin-bottom: 20px;
-        }
 
-    </style>
+.image-container img {
+    width:100%;
+    max-width:400px;
+    display:block;
+}
+
+
+header, section, footer {
+    max-width:1000px;
+    margin:auto;
+    padding:20px;
+}
+
+
+#services {
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+
+#services .card {
+    margin-bottom:20px;
+}
+
+
+.mpesa-card {
+    overflow-wrap:break-word;
+    word-wrap:break-word;
+}
+
+
+.mpesa-text {
+    font-size:14px;
+    line-height:1.4;
+}
+
+
+</style>
 
 </head>
 
@@ -71,24 +92,28 @@
 
 <header>
 
-    <h1>EditPro</h1>
+<h1>EditPro</h1>
 
-    <nav>
-        <a href="#portfolio">Portfolio</a>
-        <a href="#services">Services</a>
-        <a href="#contact">Contact</a>
-    </nav>
+<nav>
+
+<a href="#portfolio">Portfolio</a>
+<a href="#services">Services</a>
+<a href="#contact">Contact</a>
+
+</nav>
 
 </header>
 
 
+
 <section class="hero">
 
-    <h2>Professional Video Editing</h2>
+<h2>Professional Video Editing</h2>
 
-    <p>I create high-quality edits for creators, gamers, influencers, and businesses.</p>
+<p>I create high-quality edits for creators, gamers, influencers, and businesses.</p>
 
 </section>
+
 
 
 <section id="portfolio">
@@ -99,62 +124,56 @@
 <div class="gallery">
 
 
-    <!-- Sydney Sweeney -->
+<div class="edit">
 
-    <div class="edit">
+<div class="image-container">
 
-        <div class="image-container">
+<img src="{{ url_for('static', filename='images/sydney.jpg') }}" alt="Sydney Edit">
 
-            <img src="{{ url_for('static', filename='images/sydney.jpg') }}" alt="Sydney Edit">
+<div class="watermark">$10</div>
 
-            <div class="watermark">$10</div>
+</div>
 
-        </div>
+<p>Sydney Sweeney Edit</p>
 
-        <p>Sydney Sweeney Edit</p>
-
-    </div>
+</div>
 
 
 
-    <!-- Messi -->
+<div class="edit">
 
-    <div class="edit">
+<div class="image-container">
 
-        <div class="image-container">
+<img src="{{ url_for('static', filename='images/messi.jpg') }}" alt="Messi Edit">
 
-            <img src="{{ url_for('static', filename='images/messi.jpg') }}" alt="Messi Edit">
+<div class="watermark">$10 - $50</div>
 
-            <div class="watermark">$10 - $50</div>
+</div>
 
-        </div>
+<p>Lionel Messi Edit</p>
 
-        <p>Lionel Messi Edit</p>
-
-    </div>
+</div>
 
 
 
-    <!-- Planner -->
+<div class="edit">
 
-    <div class="edit">
+<div class="image-container">
 
-        <div class="image-container">
+<img src="{{ url_for('static', filename='images/PLANNER.png') }}" alt="Content Planner">
 
-            <img src="{{ url_for('static', filename='images/PLANNER.png') }}" alt="Content Planner">
+<div class="watermark">$400</div>
 
-            <div class="watermark">$400</div>
-
-        </div>
+</div>
 
 
-        <p>Content Planner Tool</p>
+<p>Content Planner Tool</p>
 
 
-        <div id="paypal-planner" class="paypal-container"></div>
+<div id="paypal-planner" class="paypal-container"></div>
 
 
-    </div>
+</div>
 
 
 </div>
@@ -164,16 +183,14 @@
 
 
 
-<!-- SERVICES -->
-
 <section id="services">
 
 
 <h2>Services</h2>
 
 
-<div class="card">
 
+<div class="card">
 
 <h3>Basic Edit</h3>
 
@@ -183,13 +200,11 @@
 
 <div id="paypal-basic" class="paypal-container"></div>
 
-
 </div>
 
 
 
 <div class="card">
-
 
 <h3>Standard Edit</h3>
 
@@ -199,13 +214,11 @@
 
 <div id="paypal-standard" class="paypal-container"></div>
 
-
 </div>
 
 
 
 <div class="card">
-
 
 <h3>Premium Edit</h3>
 
@@ -215,21 +228,27 @@
 
 <div id="paypal-premium" class="paypal-container"></div>
 
-<!-- M-PESA PAYMENT -->
+</div>
 
-<div class="card">
+ <!-- M-PESA PAYMENT -->
+
+<div class="card mpesa-card">
 
     <h3>M-Pesa Payment</h3>
 
     <p>Pay easily using M-Pesa.</p>
 
-    <p><strong>Phone Number:</strong><br>
-    +254704167254</p>
-
-    <p><strong>Name:</strong><br>
-    Your Name</p>
+    <p>
+        <strong>Phone Number:</strong><br>
+        +254704167254
+    </p>
 
     <p>
+        <strong>Name:</strong><br>
+        Your Name
+    </p>
+
+    <p class="mpesa-text">
         After payment, send the M-Pesa confirmation code through the contact form.
     </p>
 
@@ -239,25 +258,26 @@
 </section>
 
 
+
 <!-- CONTACT -->
 
 <section id="contact">
 
-    <h2>Contact Me</h2>
+<h2>Contact Me</h2>
 
 
-    <form>
+<form>
 
-        <input type="text" placeholder="Your Name" required>
+<input type="text" placeholder="Your Name" required>
 
-        <input type="email" placeholder="Your Email" required>
+<input type="email" placeholder="Your Email" required>
 
-        <textarea placeholder="What edit do you need?"></textarea>
+<textarea placeholder="What edit do you need?"></textarea>
 
-        <button type="submit">Send</button>
+<button type="submit">Send</button>
 
-    </form>
 
+</form>
 
 </section>
 
@@ -267,9 +287,10 @@
 
 <footer>
 
-    <p>© 2026 EditPro</p>
+<p>© 2026 EditPro</p>
 
 </footer>
+
 
 
 
@@ -288,24 +309,24 @@ function renderPayPal(id, amount) {
 
         style: {
 
-            color: "blue",
+            color:"blue",
 
-            shape: "pill",
+            shape:"pill",
 
-            label: "pay",
+            label:"pay",
 
-            height: 40
+            height:40
 
         },
 
 
-        createOrder: (data, actions) => {
+        createOrder:(data, actions)=>{
 
             return actions.order.create({
 
-                purchase_units: [{
+                purchase_units:[{
 
-                    amount: { value: amount }
+                    amount:{value:amount}
 
                 }]
 
@@ -314,9 +335,9 @@ function renderPayPal(id, amount) {
         },
 
 
-        onApprove: (data, actions) => {
+        onApprove:(data, actions)=>{
 
-            return actions.order.capture().then(details => {
+            return actions.order.capture().then(details=>{
 
                 alert("Payment successful! Thanks " + details.payer.name.given_name);
 
@@ -325,7 +346,7 @@ function renderPayPal(id, amount) {
         },
 
 
-        onError: (err) => {
+        onError:(err)=>{
 
             console.error("PayPal Error:", err);
 
@@ -338,10 +359,10 @@ function renderPayPal(id, amount) {
 
 
 
-window.addEventListener("load", function () {
+window.addEventListener("load", function(){
 
 
-    if (!window.paypal) {
+    if(!window.paypal){
 
         console.error("PayPal SDK not loaded");
 
@@ -350,13 +371,13 @@ window.addEventListener("load", function () {
     }
 
 
-    renderPayPal("#paypal-basic", "10");
+    renderPayPal("#paypal-basic","10");
 
-    renderPayPal("#paypal-standard", "25");
+    renderPayPal("#paypal-standard","25");
 
-    renderPayPal("#paypal-premium", "40");
+    renderPayPal("#paypal-premium","40");
 
-    renderPayPal("#paypal-planner", "400");
+    renderPayPal("#paypal-planner","400");
 
 
 });
@@ -366,9 +387,7 @@ window.addEventListener("load", function () {
 
 
 </body>
-</html>
-    
+</html>   
     
 
-
-</div>
+    
