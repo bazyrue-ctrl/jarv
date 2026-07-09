@@ -6,138 +6,248 @@
 
     <title>EditPro</title>
 
-    <!-- CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-
-    <!-- Favicon -->
     <link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}">
 
     <meta name="theme-color" content="#00c3ff">
 
-    <!-- PAYPAL SDK -->
     <script src="https://www.paypal.com/sdk/js?client-id=Afu3wAry34DpyPB6bIOKQx00iskgeqFme0T207sWxulMAqGc_OPJu5wFVXwa7yswbpDp_er1FTGInDJo&currency=USD"></script>
 
     <style>
-        .paypal-container {
-            margin-top: 15px;
-            display: flex;
-            justify-content: center;
-            min-height: 45px;
+        body{
+            font-family:Arial,Helvetica,sans-serif;
+            margin:0;
+            background:#111;
+            color:#fff;
         }
 
-        .gallery {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
+        header,section,footer{
+            max-width:1000px;
+            margin:auto;
+            padding:20px;
         }
 
-        .edit, .card {
-            border: 1px solid #ddd;
-            padding: 15px;
-            border-radius: 10px;
+        nav{
+            display:flex;
+            gap:20px;
+            margin-top:10px;
         }
 
-        .image-container img {
-            width: 100%;
-            max-width: 400px;
-            display: block;
+        nav a{
+            color:white;
+            text-decoration:none;
         }
 
-        header, section, footer {
-            max-width: 1000px;
-            margin: auto;
-            padding: 20px;
+        .hero{
+            text-align:center;
+            padding:50px 20px;
+        }
+
+        .gallery{
+            display:flex;
+            flex-wrap:wrap;
+            gap:20px;
+            justify-content:center;
+        }
+
+        .edit,.card{
+            background:#1c1c1c;
+            border-radius:12px;
+            padding:15px;
+            width:300px;
+            border:1px solid #333;
+        }
+
+        .image-container{
+            position:relative;
+        }
+
+        .image-container img{
+            width:100%;
+            border-radius:10px;
+        }
+
+        .watermark{
+            position:absolute;
+            bottom:10px;
+            right:10px;
+            background:#00c853;
+            color:white;
+            padding:5px 10px;
+            border-radius:6px;
+            font-weight:bold;
+        }
+
+        .paypal-container{
+            margin-top:15px;
+        }
+
+        input,textarea{
+            width:100%;
+            padding:10px;
+            margin-top:10px;
+            border-radius:6px;
+            border:none;
+        }
+
+        button{
+            margin-top:15px;
+            padding:10px 20px;
+            background:#00c853;
+            color:white;
+            border:none;
+            border-radius:6px;
+            cursor:pointer;
+        }
+
+        .services{
+            display:flex;
+            flex-wrap:wrap;
+            gap:20px;
+        }
+
+        .mpesa{
+            background:#0b7d34;
+            border:2px solid #00ff80;
         }
     </style>
 </head>
 
 <body oncontextmenu="return false;">
 
-<!-- HEADER -->
 <header>
-    <h1>EditPro</h1>
 
-    <nav>
-        <a href="#portfolio">Portfolio</a>
-        <a href="#services">Services</a>
-        <a href="#contact">Contact</a>
-    </nav>
+<h1>EditPro</h1>
+
+<nav>
+<a href="#portfolio">Portfolio</a>
+<a href="#services">Services</a>
+<a href="#contact">Contact</a>
+</nav>
+
 </header>
 
-<!-- HERO -->
 <section class="hero">
-    <h2>Professional Video Editing</h2>
-    <p>I create high-quality edits for creators, gamers, influencers, and businesses.</p>
+
+<h2>Professional Video Editing</h2>
+
+<p>I create high-quality edits for creators, gamers, influencers, businesses and social media.</p>
+
 </section>
 
-<!-- PORTFOLIO -->
 <section id="portfolio">
 
-    <h2>Portfolio</h2>
+<h2>Portfolio</h2>
 
-    <div class="gallery">
+<div class="gallery">
 
-        <!-- Sydney Sweeney -->
-        <div class="edit">
-            <div class="image-container">
-                <img src="{{ url_for('static', filename='images/sydney.jpg') }}" alt="Sydney Edit">
-                <div class="watermark">$5</div>
-            </div>
-            <p>Sydney Sweeney Edit</p>
-        </div>
+<div class="edit">
 
-        <!-- Messi -->
-        <div class="edit">
-            <div class="image-container">
-                <img src="{{ url_for('static', filename='images/messi.jpg') }}" alt="Messi Edit">
-                <div class="watermark">$5</div>
-            </div>
-            <p>Lionel Messi Edit</p>
-        </div>
+<div class="image-container">
 
-        <!-- PLANNER -->
-        <div class="edit">
-            <div class="image-container">
-                <img src="{{ url_for('static', filename='images/PLANNER.png') }}" alt="Content Planner">
-                <div class="watermark">$400</div>
-            </div>
-            <p>Content Planner Tool</p>
+<img src="{{ url_for('static', filename='images/sydney.jpg') }}" alt="Sydney Edit">
 
-            <!-- PayPal Button -->
-            <div id="paypal-planner" class="paypal-container"></div>
-        </div>
+<div class="watermark">$10</div>
 
-    </div>
+</div>
+
+<p>Sydney Sweeney Edit</p>
+
+</div>
+
+<div class="edit">
+
+<div class="image-container">
+
+<img src="{{ url_for('static', filename='images/messi.jpg') }}" alt="Messi Edit">
+
+<div class="watermark">$10 - $50</div>
+
+</div>
+
+<p>Lionel Messi Edit</p>
+
+</div>
+
+<div class="edit">
+
+<div class="image-container">
+
+<img src="{{ url_for('static', filename='images/PLANNER.png') }}" alt="Planner">
+
+<div class="watermark">$400</div>
+
+</div>
+
+<p>Content Planner Tool</p>
+
+<div id="paypal-planner" class="paypal-container"></div>
+
+</div>
+
+</div>
+
 </section>
 
-<!-- SERVICES -->
 <section id="services">
 
-    <h2>Services</h2>
+<h2>Services</h2>
 
-    <div class="card">
-        <h3>Basic Edit</h3>
-        <p>Simple cuts and clean edits</p>
-        <span>$5</span>
-        <div id="paypal-basic" class="paypal-container"></div>
-    </div>
+<div class="services">
 
-    <div class="card">
-        <h3>Standard Edit</h3>
-        <p>Transitions, effects & color grading</p>
-        <span>$25</span>
-        <div id="paypal-standard" class="paypal-container"></div>
-    </div>
+<div class="card">
 
-    <div class="card">
-        <h3>Premium Edit</h3>
-        <p>Cinematic editing, advanced effects & extras</p>
-        <span>$40</span>
-        <div id="paypal-premium" class="paypal-container"></div>
-    </div>
+<h3>Basic Edit</h3>
+
+<p>Simple cuts and clean edits.</p>
+
+<span><strong>$10</strong></span>
+
+<div id="paypal-basic" class="paypal-container"></div>
+
+</div>
+
+<div class="card">
+
+<h3>Standard Edit</h3>
+
+<p>Transitions, effects & color grading.</p>
+
+<span><strong>$25</strong></span>
+
+<div id="paypal-standard" class="paypal-container"></div>
+
+</div>
+
+<div class="card">
+
+<h3>Premium Edit</h3>
+
+<p>Cinematic editing, advanced effects & extras.</p>
+
+<span><strong>$40</strong></span>
+
+<div id="paypal-premium" class="paypal-container"></div>
+
+</div>
+
+<div class="card mpesa">
+
+<h3>🇰🇪 M-Pesa Payment</h3>
+
+<p>You can also pay using M-Pesa.</p>
+
+<p><strong>Phone Number:</strong> +2547XXXXXXXX</p>
+
+<p><strong>Name:</strong> Your Name</p>
+
+<p>After payment, send the M-Pesa confirmation code through the contact form.</p>
+
+</div>
+
+</div>
 
 </section>
-
 <!-- CONTACT -->
 <section id="contact">
 
@@ -145,23 +255,30 @@
 
     <form>
         <input type="text" placeholder="Your Name" required>
+
         <input type="email" placeholder="Your Email" required>
-        <textarea placeholder="What edit do you need?"></textarea>
-        <button type="submit">Send</button>
+
+        <textarea placeholder="What edit do you need?" rows="6"></textarea>
+
+        <button type="submit">Send Message</button>
     </form>
 
 </section>
 
 <!-- FOOTER -->
 <footer>
-    <p>© 2026 EditPro</p>
+
+    <p>&copy; 2026 EditPro. All Rights Reserved.</p>
+
 </footer>
 
 <!-- PAYPAL SCRIPT -->
 <script>
+
 function renderPayPal(id, amount) {
 
     const container = document.querySelector(id);
+
     if (!container || !window.paypal) return;
 
     paypal.Buttons({
@@ -174,39 +291,57 @@ function renderPayPal(id, amount) {
         },
 
         createOrder: (data, actions) => {
+
             return actions.order.create({
+
                 purchase_units: [{
-                    amount: { value: amount }
+
+                    amount: {
+                        value: amount
+                    }
+
                 }]
+
             });
+
         },
 
         onApprove: (data, actions) => {
+
             return actions.order.capture().then(details => {
+
                 alert("Payment successful! Thanks " + details.payer.name.given_name);
+
             });
+
         },
 
         onError: (err) => {
+
             console.error("PayPal Error:", err);
+
+            alert("Something went wrong. Please try again.");
+
         }
 
     }).render(container);
+
 }
 
 window.addEventListener("load", function () {
 
     if (!window.paypal) {
-        console.error("PayPal SDK not loaded");
+        console.error("PayPal SDK not loaded.");
         return;
     }
 
-    renderPayPal("#paypal-basic", "5");
+    renderPayPal("#paypal-basic", "10");
     renderPayPal("#paypal-standard", "25");
     renderPayPal("#paypal-premium", "40");
     renderPayPal("#paypal-planner", "400");
 
 });
+
 </script>
 
 </body>
