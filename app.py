@@ -25,7 +25,7 @@ def submit():
     SENDER_EMAIL = "YOUR_EMAIL@gmail.com"
 
     # GMAIL APP PASSWORD
-    SENDER_APP_PASSWORD = "YOUR_APP_PASSWORD"
+    SENDER_APP_PASSWORD = "zcah azgy nlmq jkxm"
 
     msg = EmailMessage()
 
