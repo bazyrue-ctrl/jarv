@@ -82,7 +82,6 @@ header, section, footer {
 
 <body oncontextmenu="return false;">
 
-
 <header>
 
 <h1>EditPro</h1>
@@ -129,7 +128,6 @@ header, section, footer {
 </div>
 
 
-
 <div class="edit">
 
 <div class="image-container">
@@ -143,7 +141,6 @@ header, section, footer {
 <p>Lionel Messi Edit</p>
 
 </div>
-
 
 
 <div class="edit">
@@ -211,7 +208,8 @@ header, section, footer {
 
 </div>
 
-    <!-- M-PESA PAYMENT -->
+
+<!-- M-PESA PAYMENT -->
 
 <div class="card mpesa-card">
 
@@ -239,30 +237,39 @@ After payment, send the M-Pesa confirmation code through the contact form.
 </section>
 
 
-
 <!-- CONTACT -->
 
 <section id="contact">
 
 <h2>Contact Me</h2>
 
+<form action="/submit" method="POST">
 
-<form>
+<input 
+    type="text" 
+    name="name" 
+    placeholder="Your Name" 
+    required
+>
 
-<input type="text" placeholder="Your Name" required>
+<input 
+    type="email" 
+    name="email" 
+    placeholder="Your Email" 
+    required
+>
 
-<input type="email" placeholder="Your Email" required>
-
-<textarea placeholder="What edit do you need?"></textarea>
+<textarea 
+    name="message" 
+    placeholder="What edit do you need?"
+    required
+></textarea>
 
 <button type="submit">Send</button>
 
-
 </form>
 
-
 </section>
-
 
 
 <!-- FOOTER -->
@@ -272,7 +279,6 @@ After payment, send the M-Pesa confirmation code through the contact form.
 <p>© 2026 EditPro</p>
 
 </footer>
-
 
 
 <!-- PAYPAL SCRIPT -->
@@ -339,7 +345,6 @@ console.error("PayPal Error:", err);
 }
 
 
-
 window.addEventListener("load", function(){
 
 
@@ -362,7 +367,6 @@ renderPayPal("#paypal-planner","400");
 
 
 });
-
 
 </script>
 
