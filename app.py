@@ -22,7 +22,7 @@ def submit():
     MY_EMAIL = "ronahhyo@gmail.com"
 
     # EMAIL ACCOUNT THAT SENDS THE MESSAGE
-    SENDER_EMAIL = "YOUR_EMAIL@gmail.com"
+    SENDER_EMAIL = "ronahhyo@gmail.com"
 
     # GMAIL APP PASSWORD
     SENDER_APP_PASSWORD = "zcah azgy nlmq jkxm"
