@@ -83,7 +83,6 @@ header, section, footer {
 
 <body oncontextmenu="return false;">
 
-
 <header>
 
 <h1>EditPro</h1>
@@ -98,7 +97,6 @@ header, section, footer {
 
 </header>
 
-
 <section class="hero">
 
 <h2>Professional Video Editing</h2>
@@ -107,13 +105,11 @@ header, section, footer {
 
 </section>
 
-
 <section id="portfolio">
 
 <h2>Portfolio</h2>
 
 <div class="gallery">
-
 
 <div class="edit">
 
@@ -129,7 +125,6 @@ header, section, footer {
 
 </div>
 
-
 <div class="edit">
 
 <div class="image-container">
@@ -143,7 +138,6 @@ header, section, footer {
 <p>Lionel Messi Edit</p>
 
 </div>
-
 
 <!-- EXISTING CONTENT PLANNER - $400 -->
 
@@ -163,8 +157,7 @@ header, section, footer {
 
 </div>
 
-
-<!-- NEW YOUTUBE GROWTH GUIDE E-BOOK - $200 -->
+<!-- YOUTUBE GROWTH GUIDE E-BOOK - $200 -->
 
 <div class="edit">
 
@@ -182,16 +175,13 @@ header, section, footer {
 
 </div>
 
-
 </div>
 
 </section>
 
-
 <section id="services">
 
 <h2>Services</h2>
-
 
 <div class="card">
 
@@ -205,7 +195,6 @@ header, section, footer {
 
 </div>
 
-
 <div class="card">
 
 <h3>Standard Edit</h3>
@@ -218,7 +207,6 @@ header, section, footer {
 
 </div>
 
-
 <div class="card">
 
 <h3>Premium Edit</h3>
@@ -230,7 +218,6 @@ header, section, footer {
 <div id="paypal-premium" class="paypal-container"></div>
 
 </div>
-
 
 <!-- M-PESA PAYMENT -->
 
@@ -256,16 +243,13 @@ After payment, send the M-Pesa confirmation code through the contact form.
 
 </div>
 
-
 </section>
-
 
 <!-- CONTACT -->
 
 <section id="contact">
 
 <h2>Contact Me</h2>
-
 
 <form action="https://api.web3forms.com/submit" method="POST">
 
@@ -294,11 +278,9 @@ After payment, send the M-Pesa confirmation code through the contact form.
 
 <button type="submit">Send</button>
 
-
 </form>
 
 </section>
-
 
 <!-- FOOTER -->
 
@@ -308,98 +290,79 @@ After payment, send the M-Pesa confirmation code through the contact form.
 
 </footer>
 
-
 <!-- PAYPAL SCRIPT -->
 
 <script>
 
 function renderPayPal(id, amount) {
 
-const container = document.querySelector(id);
+    const container = document.querySelector(id);
 
-if (!container || !window.paypal) return;
+    if (!container || !window.paypal) return;
 
+    paypal.Buttons({
 
-paypal.Buttons({
+        style: {
+            color: "blue",
+            shape: "pill",
+            label: "pay",
+            height: 40
+        },
 
-style: {
+        createOrder: (data, actions) => {
 
-color:"blue",
+            return actions.order.create({
 
-shape:"pill",
+                purchase_units: [{
+                    amount: {
+                        value: amount
+                    }
+                }]
 
-label:"pay",
+            });
 
-height:40
+        },
 
-},
+        onApprove: (data, actions) => {
 
+            return actions.order.capture().then(details => {
 
-createOrder:(data, actions)=>{
+                alert("Payment successful! Thanks " + details.payer.name.given_name);
 
-return actions.order.create({
+            });
 
-purchase_units:[{
+        },
 
-amount:{value:amount}
+        onError: (err) => {
 
-}]
+            console.error("PayPal Error:", err);
 
-});
+        }
 
-},
-
-
-onApprove:(data, actions)=>{
-
-return actions.order.capture().then(details=>{
-
-alert("Payment successful! Thanks " + details.payer.name.given_name);
-
-});
-
-},
-
-
-onError:(err)=>{
-
-console.error("PayPal Error:", err);
+    }).render(container);
 
 }
 
+window.addEventListener("load", function() {
 
-}).render(container);
+    if (!window.paypal) {
+        console.error("PayPal SDK not loaded");
+        return;
+    }
 
-}
+    renderPayPal("#paypal-basic", "10");
+    renderPayPal("#paypal-standard", "25");
+    renderPayPal("#paypal-premium", "40");
 
+    // Content Planner remains $400
+    renderPayPal("#paypal-planner", "400");
 
-window.addEventListener("load", function(){
-
-
-if(!window.paypal){
-
-console.error("PayPal SDK not loaded");
-
-return;
-
-}
-
-
-renderPayPal("#paypal-basic","10");
-
-renderPayPal("#paypal-standard","25");
-
-renderPayPal("#paypal-premium","40");
-
-renderPayPal("#paypal-planner","400");
-
-renderPayPal("#paypal-ebook","200");
-
+    // YouTube Growth Guide E-book costs $200
+    renderPayPal("#paypal-ebook", "200");
 
 });
 
 </script>
-
 
 </body>
 </html>
