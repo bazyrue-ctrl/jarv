@@ -2,368 +2,401 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>EditPro</title>
+    <title>EditPro</title>
 
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}">
 
-<link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}">
+    <meta name="theme-color" content="#00c3ff">
 
-<meta name="theme-color" content="#00c3ff">
+    <script src="https://www.paypal.com/sdk/js?client-id=Afu3wAry34DpyPB6bIOKQx00iskgeqFme0T207sWxulMAqGc_OPJu5wFVXwa7yswbpDp_er1FTGInDJo&currency=USD"></script>
 
-<script src="https://www.paypal.com/sdk/js?client-id=Afu3wAry34DpyPB6bIOKQx00iskgeqFme0T207sWxulMAqGc_OPJu5wFVXwa7yswbpDp_er1FTGInDJo&currency=USD"></script>
-
-<style>
-
-.paypal-container {
-    margin-top:15px;
-    display:flex;
-    justify-content:center;
-    min-height:45px;
-}
-
-.gallery {
-    display:flex;
-    gap:20px;
-    flex-wrap:wrap;
-    justify-content:center;
-}
-
-.edit, .card {
-    width:300px;
-    max-width:90%;
-    box-sizing:border-box;
-    border:1px solid #ddd;
-    padding:15px;
-    border-radius:10px;
-}
-
-.image-container img {
-    width:100%;
-    max-width:400px;
-    display:block;
-}
-
-header, section, footer {
-    max-width:1000px;
-    margin:auto;
-    padding:20px;
-}
-
-#services {
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-}
-
-#services .card {
-    margin-bottom:20px;
-}
-
-.mpesa-card {
-    overflow-wrap:break-word;
-    word-wrap:break-word;
-}
-
-.mpesa-text {
-    font-size:14px;
-    line-height:1.4;
-}
-
-/* Content Planner blur only */
-.planner-blur {
-    filter: blur(5px);
-}
-
-</style>
-
-</head>
-
-<body oncontextmenu="return false;">
-
-<header>
-
-<h1>EditPro</h1>
-
-<nav>
-
-<a href="#portfolio">Portfolio</a>
-<a href="#services">Services</a>
-<a href="#contact">Contact</a>
-
-</nav>
-
-</header>
-
-<section class="hero">
-
-<h2>Professional Video Editing</h2>
-
-<p>I create high-quality edits for creators, gamers, influencers, and businesses.</p>
-
-</section>
-
-<section id="portfolio">
-
-<h2>Portfolio</h2>
-
-<div class="gallery">
-
-<div class="edit">
-
-<div class="image-container">
-
-<img src="{{ url_for('static', filename='images/sydney.jpg') }}" alt="Sydney Edit">
-
-<div class="watermark">$10</div>
-
-</div>
-
-<p>Sydney Sweeney Edit</p>
-
-</div>
-
-<div class="edit">
-
-<div class="image-container">
-
-<img src="{{ url_for('static', filename='images/messi.jpg') }}" alt="Messi Edit">
-
-<div class="watermark">$10 - $50</div>
-
-</div>
-
-<p>Lionel Messi Edit</p>
-
-</div>
-
-<!-- EXISTING CONTENT PLANNER - $400 -->
-
-<div class="edit">
-
-<div class="image-container">
-
-<img class="planner-blur" src="{{ url_for('static', filename='images/PLANNER.png') }}" alt="Content Planner">
-
-<div class="watermark">$400</div>
-
-</div>
-
-<p>Content Planner Tool</p>
-
-<div id="paypal-planner" class="paypal-container"></div>
-
-</div>
-
-<!-- YOUTUBE GROWTH GUIDE E-BOOK - $200 -->
-
-<div class="edit">
-
-<div class="image-container">
-
-<img src="{{ url_for('static', filename='images/YouTube Growth Guide E book.png') }}" alt="YouTube Growth Guide E-book">
-
-<div class="watermark">$200</div>
-
-</div>
-
-<p>YouTube Growth Guide E-book</p>
-
-<div id="paypal-ebook" class="paypal-container"></div>
-
-</div>
-
-</div>
-
-</section>
-
-<section id="services">
-
-<h2>Services</h2>
-
-<div class="card">
-
-<h3>Basic Edit</h3>
-
-<p>Simple cuts and clean edits</p>
-
-<span>$10</span>
-
-<div id="paypal-basic" class="paypal-container"></div>
-
-</div>
-
-<div class="card">
-
-<h3>Standard Edit</h3>
-
-<p>Transitions, effects & color grading</p>
-
-<span>$25</span>
-
-<div id="paypal-standard" class="paypal-container"></div>
-
-</div>
-
-<div class="card">
-
-<h3>Premium Edit</h3>
-
-<p>Cinematic editing, advanced effects & extras</p>
-
-<span>$40</span>
-
-<div id="paypal-premium" class="paypal-container"></div>
-
-</div>
-
-<!-- M-PESA PAYMENT -->
-
-<div class="card mpesa-card">
-
-<h3>M-Pesa Payment</h3>
-
-<p>Pay easily using M-Pesa.</p>
-
-<p>
-<strong>Phone Number:</strong><br>
-+254704167254
-</p>
-
-<p>
-<strong>Name:</strong><br>
-Your Name
-</p>
-
-<p class="mpesa-text">
-After payment, send the M-Pesa confirmation code through the contact form.
-</p>
-
-</div>
-
-</section>
-
-<!-- CONTACT -->
-
-<section id="contact">
-
-<h2>Contact Me</h2>
-
-<form action="https://api.web3forms.com/submit" method="POST">
-
-<!-- PUT YOUR WEB3FORMS ACCESS KEY HERE -->
-<input type="hidden" name="access_key" value="6be9cbf6-fa59-45ea-a8cc-94df04c0c558">
-
-<input
-    type="text"
-    name="name"
-    placeholder="Your Name"
-    required
->
-
-<input
-    type="email"
-    name="email"
-    placeholder="Your Email"
-    required
->
-
-<textarea
-    name="message"
-    placeholder="What edit do you need?"
-    required
-></textarea>
-
-<button type="submit">Send</button>
-
-</form>
-
-</section>
-
-<!-- FOOTER -->
-
-<footer>
-
-<p>© 2026 EditPro</p>
-
-</footer>
-
-<!-- PAYPAL SCRIPT -->
-
-<script>
-
-function renderPayPal(id, amount) {
-
-    const container = document.querySelector(id);
-
-    if (!container || !window.paypal) return;
-
-    paypal.Buttons({
-
-        style: {
-            color: "blue",
-            shape: "pill",
-            label: "pay",
-            height: 40
-        },
-
-        createOrder: (data, actions) => {
-
-            return actions.order.create({
-
-                purchase_units: [{
-                    amount: {
-                        value: amount
-                    }
-                }]
-
-            });
-
-        },
-
-        onApprove: (data, actions) => {
-
-            return actions.order.capture().then(details => {
-
-                alert("Payment successful! Thanks " + details.payer.name.given_name);
-
-            });
-
-        },
-
-        onError: (err) => {
-
-            console.error("PayPal Error:", err);
-
+    <style>
+        /* PayPal buttons */
+        .paypal-container {
+            margin-top: 15px;
+            display: flex;
+            justify-content: center;
+            min-height: 45px;
         }
 
-    }).render(container);
+        /* Portfolio gallery */
+        .gallery {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: flex-start;
+        }
 
-}
+        .edit,
+        .card {
+            width: 300px;
+            max-width: 90%;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 10px;
+        }
 
-window.addEventListener("load", function() {
+        .image-container img {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            display: block;
+        }
 
-    if (!window.paypal) {
-        console.error("PayPal SDK not loaded");
-        return;
-    }
+        header,
+        section,
+        footer {
+            max-width: 1000px;
+            margin: auto;
+            padding: 20px;
+            box-sizing: border-box;
+        }
 
-    renderPayPal("#paypal-basic", "10");
-    renderPayPal("#paypal-standard", "25");
-    renderPayPal("#paypal-premium", "40");
+        /* Services */
+        #services {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-    // Content Planner remains $400
-    renderPayPal("#paypal-planner", "400");
+        #services .card {
+            margin-bottom: 20px;
+        }
 
-    // YouTube Growth Guide E-book costs $200
-    renderPayPal("#paypal-ebook", "200");
+        /* M-Pesa */
+        .mpesa-card {
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+        }
 
-});
+        .mpesa-text {
+            font-size: 14px;
+            line-height: 1.4;
+        }
 
-</script>
+        /* Content Planner blur only */
+        .planner-blur {
+            filter: blur(5px);
+        }
 
+        /* E-BOOK COVER ONLY */
+        .edit.ebook .image-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .edit.ebook .image-container img {
+            width: 100%;
+            height: 360px;
+            object-fit: contain;
+            object-position: center;
+            display: block;
+            margin: 0 auto;
+            transform: none;
+            transition: none;
+        }
+
+        /* Disable hover zoom on e-book only */
+        .edit.ebook .image-container:hover img,
+        .edit.ebook:hover .image-container img {
+            transform: none;
+        }
+
+        /* Keep other portfolio images proportional */
+        .edit:not(.ebook) .image-container img {
+            height: auto;
+            object-fit: contain;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 15px;
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+
+            nav a {
+                margin-left: 10px;
+            }
+
+            .hero {
+                padding: 60px 15px;
+            }
+
+            .hero h2 {
+                font-size: 28px;
+            }
+
+            #portfolio {
+                padding: 40px 15px;
+            }
+
+            .gallery {
+                gap: 15px;
+            }
+
+            .edit.ebook .image-container img {
+                height: 320px;
+            }
+
+            #services {
+                padding: 40px 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- HEADER -->
+    <header>
+        <h1>EditPro</h1>
+
+        <nav>
+            <a href="#portfolio">Portfolio</a>
+            <a href="#services">Services</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+        <h2>Professional Video Editing</h2>
+        <p>I create high-quality edits for creators, gamers, influencers, and businesses.</p>
+    </section>
+
+    <!-- PORTFOLIO -->
+    <section id="portfolio">
+        <h2>Portfolio</h2>
+
+        <div class="gallery">
+
+            <!-- SYDNEY SWEENEY EDIT -->
+            <div class="edit">
+                <div class="image-container">
+                    <img
+                        src="{{ url_for('static', filename='images/sydney.jpg') }}"
+                        alt="Sydney Sweeney Edit"
+                    >
+                    <div class="watermark">$10</div>
+                </div>
+
+                <p>Sydney Sweeney Edit</p>
+            </div>
+
+            <!-- MESSI EDIT -->
+            <div class="edit">
+                <div class="image-container">
+                    <img
+                        src="{{ url_for('static', filename='images/messi.jpg') }}"
+                        alt="Lionel Messi Edit"
+                    >
+                    <div class="watermark">$10 - $50</div>
+                </div>
+
+                <p>Lionel Messi Edit</p>
+            </div>
+
+            <!-- CONTENT PLANNER: $400 -->
+            <div class="edit planner">
+                <div class="image-container">
+                    <img
+                        class="planner-blur"
+                        src="{{ url_for('static', filename='images/PLANNER.png') }}"
+                        alt="Content Planner"
+                    >
+                    <div class="watermark">$400</div>
+                </div>
+
+                <p>Content Planner Tool</p>
+
+                <div id="paypal-planner" class="paypal-container"></div>
+            </div>
+
+            <!-- YOUTUBE GROWTH GUIDE E-BOOK: $200 -->
+            <div class="edit ebook">
+                <div class="image-container">
+                    <img
+                        src="{{ url_for('static', filename='images/YouTube Growth Guide E Book.png') }}"
+                        alt="YouTube Growth Guide E-book"
+                        onerror="this.onerror=null; this.alt='E-book cover image not found. Check the filename and static/images folder.';"
+                    >
+
+                    <div class="watermark">$200</div>
+                </div>
+
+                <p>YouTube Growth Guide E-book</p>
+
+                <div id="paypal-ebook" class="paypal-container"></div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services">
+        <h2>Services</h2>
+
+        <!-- BASIC EDIT -->
+        <div class="card">
+            <h3>Basic Edit</h3>
+            <p>Simple cuts and clean edits</p>
+            <span>$10</span>
+
+            <div id="paypal-basic" class="paypal-container"></div>
+        </div>
+
+        <!-- STANDARD EDIT -->
+        <div class="card">
+            <h3>Standard Edit</h3>
+            <p>Transitions, effects &amp; color grading</p>
+            <span>$25</span>
+
+            <div id="paypal-standard" class="paypal-container"></div>
+        </div>
+
+        <!-- PREMIUM EDIT -->
+        <div class="card">
+            <h3>Premium Edit</h3>
+            <p>Cinematic editing, advanced effects &amp; extras</p>
+            <span>$40</span>
+
+            <div id="paypal-premium" class="paypal-container"></div>
+        </div>
+
+        <!-- M-PESA PAYMENT -->
+        <div class="card mpesa-card">
+            <h3>M-Pesa Payment</h3>
+
+            <p>Pay easily using M-Pesa.</p>
+
+            <p>
+                <strong>Phone Number:</strong><br>
+                +254704167254
+            </p>
+
+            <p>
+                <strong>Name:</strong><br>
+                Your Name
+            </p>
+
+            <p class="mpesa-text">
+                After payment, send the M-Pesa confirmation code through the contact form.
+            </p>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+        <h2>Contact Me</h2>
+
+        <form action="https://api.web3forms.com/submit" method="POST">
+            <input
+                type="hidden"
+                name="access_key"
+                value="6be9cbf6-fa59-45ea-a8cc-94df04c0c558"
+            >
+
+            <input
+                type="text"
+                name="name"
+                placeholder="Your Name"
+                required
+            >
+
+            <input
+                type="email"
+                name="email"
+                placeholder="Your Email"
+                required
+            >
+
+            <textarea
+                name="message"
+                placeholder="What edit do you need?"
+                required
+            ></textarea>
+
+            <button type="submit">Send</button>
+        </form>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2026 EditPro</p>
+    </footer>
+
+    <!-- PAYPAL -->
+    <script>
+        function renderPayPal(id, amount) {
+            const container = document.querySelector(id);
+
+            if (!container || !window.paypal) {
+                console.error("PayPal unavailable for:", id);
+                return;
+            }
+
+            paypal.Buttons({
+                style: {
+                    color: "blue",
+                    shape: "pill",
+                    label: "pay",
+                    height: 40
+                },
+
+                createOrder: function (data, actions) {
+                    return actions.order.create({
+                        purchase_units: [{
+                            amount: {
+                                currency_code: "USD",
+                                value: amount
+                            }
+                        }]
+                    });
+                },
+
+                onApprove: function (data, actions) {
+                    return actions.order.capture().then(function (details) {
+                        const firstName =
+                            details.payer &&
+                            details.payer.name &&
+                            details.payer.name.given_name
+                                ? details.payer.name.given_name
+                                : "customer";
+
+                        alert("Payment successful! Thanks " + firstName);
+                    });
+                },
+
+                onError: function (err) {
+                    console.error("PayPal Error:", err);
+                    alert("PayPal encountered an error. Please try again.");
+                }
+            }).render(container);
+        }
+
+        window.addEventListener("load", function () {
+            if (!window.paypal) {
+                console.error("PayPal SDK not loaded.");
+                return;
+            }
+
+            renderPayPal("#paypal-basic", "10");
+            renderPayPal("#paypal-standard", "25");
+            renderPayPal("#paypal-premium", "40");
+
+            // Content Planner price: $400
+            renderPayPal("#paypal-planner", "400");
+
+            // YouTube Growth Guide E-book price: $200
+            renderPayPal("#paypal-ebook", "200");
+        });
+    </script>
 </body>
 </html>
-```
