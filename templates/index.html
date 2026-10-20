@@ -75,7 +75,7 @@
             line-height: 1.4;
         }
 
-        /* Content Planner blur only */
+        /* Blur the Content Planner only */
         .planner-blur {
             filter: blur(5px);
         }
@@ -98,6 +98,7 @@
             transition: none;
         }
 
+        /* Prevent hover zoom on the e-book cover only */
         .edit.ebook .image-container:hover img,
         .edit.ebook:hover .image-container img {
             transform: none;
@@ -139,6 +140,7 @@
 </head>
 
 <body>
+
     <!-- HEADER -->
     <header>
         <h1>EditPro</h1>
@@ -171,6 +173,7 @@
                     >
                     <div class="watermark">$10</div>
                 </div>
+
                 <p>Sydney Sweeney Edit</p>
             </div>
 
@@ -183,10 +186,11 @@
                     >
                     <div class="watermark">$10 - $50</div>
                 </div>
+
                 <p>Lionel Messi Edit</p>
             </div>
 
-            <!-- CONTENT PLANNER: $400 -->
+            <!-- CONTENT PLANNER - $400 -->
             <div class="edit planner">
                 <div class="image-container">
                     <img
@@ -198,20 +202,22 @@
                 </div>
 
                 <p>Content Planner Tool</p>
+
                 <div id="paypal-planner" class="paypal-container"></div>
             </div>
 
-            <!-- YOUTUBE GROWTH GUIDE E-BOOK: $200 -->
+            <!-- YOUTUBE GROWTH GUIDE E-BOOK - $200 -->
             <div class="edit ebook">
                 <div class="image-container">
                     <img
-                        src="{{ url_for('static', filename='images/youtube-growth-guide-e-book.png') }}"
+                        src="{{ url_for('static', filename='images/cover.png') }}"
                         alt="YouTube Growth Guide E-book"
                     >
                     <div class="watermark">$200</div>
                 </div>
 
                 <p>YouTube Growth Guide E-book</p>
+
                 <div id="paypal-ebook" class="paypal-container"></div>
             </div>
 
@@ -269,6 +275,7 @@
         <h2>Contact Me</h2>
 
         <form action="https://api.web3forms.com/submit" method="POST">
+
             <input
                 type="hidden"
                 name="access_key"
@@ -370,5 +377,6 @@
             renderPayPal("#paypal-ebook", "200");
         });
     </script>
+
 </body>
 </html>
