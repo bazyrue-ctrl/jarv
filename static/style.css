@@ -1,17 +1,17 @@
+
 /* ===== GENERAL STYLES ===== */
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-
     background-image: url("/static/images/blue.jpg");
-
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    background-attachment: fixed;
     color: white;
 }
 
-/* Optional overlay for readability */
+/* Overlay for readability */
 body::before {
     content: "";
     position: fixed;
@@ -21,6 +21,7 @@ body::before {
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
     z-index: -1;
+    pointer-events: none;
 }
 
 /* ===== HEADER ===== */
@@ -29,7 +30,7 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 15px 30px;
-    background: rgba(0,0,0,0.6);
+    background: rgba(0, 0, 0, 0.6);
 }
 
 header h1 {
@@ -66,7 +67,7 @@ nav a:hover {
     font-size: 16px;
     border-radius: 6px;
     cursor: pointer;
-    transition: 0.3s;
+    transition: background 0.3s ease;
 }
 
 .hero button:hover {
@@ -83,11 +84,12 @@ nav a:hover {
 }
 
 .card {
-    background: rgba(0,0,0,0.6);
+    background: rgba(0, 0, 0, 0.6);
     padding: 25px;
     margin: 15px;
     border-radius: 10px;
     width: 220px;
+    box-sizing: border-box;
 }
 
 .card span {
@@ -103,7 +105,7 @@ nav a:hover {
     color: white;
     border-radius: 5px;
     cursor: pointer;
-    transition: 0.3s;
+    transition: background 0.3s ease;
 }
 
 .card button:hover {
@@ -116,33 +118,40 @@ nav a:hover {
     text-align: center;
 }
 
+/* Product cards */
 .edit {
-    background: rgba(0,0,0,0.6);
+    background: rgba(0, 0, 0, 0.6);
     padding: 15px;
     border-radius: 10px;
     display: inline-block;
+    margin: 15px;
     margin-bottom: 30px;
+    vertical-align: top;
+    box-sizing: border-box;
 }
 
 /* Gallery layout */
 .gallery {
     display: flex;
     justify-content: center;
+    align-items: flex-start;
     flex-wrap: wrap;
     gap: 25px;
 }
 
-/* Image cards */
+/* Image containers */
 .image-container {
     width: 260px;
+    max-width: 100%;
     position: relative;
     border-radius: 12px;
     overflow: hidden;
-    background: rgba(0,0,0,0.6);
+    background: rgba(0, 0, 0, 0.6);
     padding: 10px;
+    box-sizing: border-box;
 }
 
-/* Image */
+/* General images — other portfolio images remain unchanged */
 .image-container img {
     width: 100%;
     height: auto;
@@ -151,7 +160,7 @@ nav a:hover {
     transition: transform 0.3s ease;
 }
 
-/* Hover zoom */
+/* Hover zoom for regular portfolio images */
 .image-container:hover img {
     transform: scale(1.05);
 }
@@ -167,78 +176,43 @@ nav a:hover {
     border-radius: 6px;
     cursor: pointer;
     font-weight: bold;
-    transition: 0.3s;
+    transition: background 0.3s ease;
 }
 
 .watermark:hover {
     background: #0099cc;
 }
 
-/* ===== CONTACT ===== */
-#contact {
-    padding: 60px 20px;
-    text-align: center;
+/* ===== E-BOOK COVER ONLY ===== */
+/* Requires the e-book card to use class="edit ebook" */
+.edit.ebook .image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-form {
-    max-width: 400px;
-    margin: auto;
-}
-
-input, textarea {
+.edit.ebook .image-container img {
     width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 5px;
-    border: none;
+    height: 360px;
+    object-fit: contain;
+    object-position: center;
+    display: block;
+    margin: 0 auto;
+    transform: none;
+    transition: none;
 }
 
-input:focus, textarea:focus {
-    outline: 2px solid #00c3ff;
-}
-
-form button {
-    padding: 12px;
-    border: none;
-    background: #00c3ff;
-    color: white;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-form button:hover {
-    background: #0099cc;
-}
-
-/* ===== FOOTER ===== */
-footer {
-    text-align: center;
-    padding: 20px;
-    background: rgba(0,0,0,0.6);
-}
-
-/* ===== MOBILE ===== */
-@media (max-width: 768px) {
-    .hero {
-        padding: 60px 15px;
-    }
-
-    .hero h2 {
-        font-size: 28px;
-    }
-
-    .image-container {
-        width: 90%;
-    }
+.edit.ebook .image-container:hover img,
+.edit.ebook:hover .image-container img {
+    transform: none;
 }
 
 /* ===== PLANNER (PREMIUM PRODUCT) ===== */
-
 .edit.planner {
     border: 2px solid #00c3ff;
     box-shadow: 0 0 25px rgba(0, 195, 255, 0.35);
     transform: scale(1.03);
-    transition: 0.3s ease;
+    transition: transform 0.3s ease;
 }
 
 .edit.planner:hover {
@@ -256,4 +230,102 @@ footer {
 
 .edit.planner .paypal-container {
     margin-top: 12px;
+}
+
+/* ===== CONTACT ===== */
+#contact {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+form {
+    max-width: 400px;
+    margin: auto;
+}
+
+input,
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: none;
+    box-sizing: border-box;
+}
+
+input:focus,
+textarea:focus {
+    outline: 2px solid #00c3ff;
+}
+
+form button {
+    padding: 12px;
+    border: none;
+    background: #00c3ff;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+form button:hover {
+    background: #0099cc;
+}
+
+/* ===== FOOTER ===== */
+footer {
+    text-align: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 768px) {
+    header {
+        flex-wrap: wrap;
+        gap: 12px;
+        padding: 15px 20px;
+    }
+
+    nav a {
+        margin-left: 10px;
+    }
+
+    .hero {
+        padding: 60px 15px;
+    }
+
+    .hero h2 {
+        font-size: 28px;
+    }
+
+    #services {
+        padding: 40px 15px;
+    }
+
+    .card {
+        width: 100%;
+        max-width: 320px;
+    }
+
+    #portfolio {
+        padding: 40px 15px;
+    }
+
+    .gallery {
+        gap: 15px;
+    }
+
+    .edit {
+        max-width: 100%;
+        margin: 10px 0 20px;
+    }
+
+    .image-container {
+        width: 260px;
+        max-width: 100%;
+    }
+
+    .edit.ebook .image-container img {
+        height: 320px;
+    }
 }
