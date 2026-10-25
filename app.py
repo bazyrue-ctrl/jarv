@@ -39,7 +39,7 @@ PRODUCTS_DIR = Path(__file__).resolve().parent / "private_products"
 PRODUCTS = {
     "content-planner": {
         "name": "Content Planner",
-        "price": "400.00",
+        "price": "150.00",
         "file": "content_planner.png",
         "mimetype": "image/png",
     },
@@ -212,9 +212,7 @@ def capture_order():
             ), 402
 
         # Ensure the corresponding product file exists before issuing a link.
-        product_path = (
-            PRODUCTS_DIR / product["file"]
-        ).resolve()
+        product_path = (PRODUCTS_DIR / product["file"]).resolve()
 
         if (
             product_path.parent != PRODUCTS_DIR.resolve()
@@ -280,9 +278,7 @@ def download_product(token):
     if not product:
         abort(404)
 
-    product_path = (
-        PRODUCTS_DIR / product["file"]
-    ).resolve()
+    product_path = (PRODUCTS_DIR / product["file"]).resolve()
 
     if (
         product_path.parent != PRODUCTS_DIR.resolve()
@@ -306,5 +302,4 @@ if __name__ == "__main__":
         port=int(os.environ.get("PORT", 5000)),
         debug=False,
     )
-
 
