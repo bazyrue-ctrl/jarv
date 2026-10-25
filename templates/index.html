@@ -208,7 +208,7 @@
                         src="{{ url_for('static', filename='images/PLANNER.png') }}"
                         alt="Content Planner"
                     >
-                    <div class="watermark">$400</div>
+                    <div class="watermark">$150</div>
                 </div>
 
                 <p>Content Planner Tool</p>
@@ -321,7 +321,6 @@
 
     <!-- PAYPAL SDK LOADER AND BUTTONS -->
     <script>
-        // Keep this Client ID matched to your PayPal app.
         const PAYPAL_CLIENT_ID =
             "Afu3wAry34DpyPB6bIOKQx00iskgeqFme0T207sWxulMAqGc_OPJu5wFVXwa7yswbpDp_er1FTGInDJo";
 
@@ -341,7 +340,6 @@
             );
         }
 
-        // Load the SDK once and wait for it before rendering buttons.
         function loadPayPalSdk() {
             return new Promise(function (resolve, reject) {
                 if (window.paypal && window.paypal.Buttons) {
@@ -386,7 +384,7 @@
             });
         }
 
-        // Digital products use the server-side order and capture routes.
+        // Digital products use server-side order creation and payment capture.
         function renderDigitalProductPayPal(selector, productId) {
             const container = document.querySelector(selector);
 
@@ -486,7 +484,7 @@
             });
         }
 
-        // Editing services.
+        // Editing service payments.
         function renderServicePayPal(selector, amount) {
             const container = document.querySelector(selector);
 
@@ -537,11 +535,10 @@
                     );
                 }
             }).render(container).catch(function (error) {
-                console.error("Could not render service button:", error);
+                console.error("Could not render PayPal button:", error);
             });
         }
 
-        // Load PayPal first, then render every button.
         document.addEventListener("DOMContentLoaded", async function () {
             try {
                 await loadPayPalSdk();
@@ -575,4 +572,3 @@
 
 </body>
 </html>
-
