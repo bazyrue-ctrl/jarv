@@ -17,27 +17,8 @@ from itsdangerous import URLSafeTimedSerializer, BadSignature, SignatureExpired
 
 app = Flask(__name__, static_folder="static", template_folder="templates")
 
-# Configure these in Render Environment Variables.
+# Render environment variables
 app.secret_key = os.environ.get("SECRET_KEY", "")
-
-# Private product PDFs.
-PRODUCTS_DIR = Path(__file__).resolve().parent / "private_products"
-
-# Product details and exact PDF filenames.
-PRODUCTS = {
-    "content-planner": {
-        "name": "Content Planner",
-        "price": "400.00",
-        "file": "content_planner.pdf",
-    },
-    "youtube-growth-guide": {
-        "name": "YouTube Growth Guide",
-        "price": "200.00",
-        "file": "youtube_growth_giude.pdf",
-    },
-}
-
-CURRENCY = "USD"
 
 PAYPAL_CLIENT_ID = os.environ.get("PAYPAL_CLIENT_ID", "")
 PAYPAL_CLIENT_SECRET = os.environ.get("PAYPAL_CLIENT_SECRET", "")
@@ -49,6 +30,27 @@ PAYPAL_BASE = (
     else "https://api-m.sandbox.paypal.com"
 )
 
+CURRENCY = "USD"
+
+# Private product files
+PRODUCTS_DIR = Path(__file__).resolve().parent / "private_products"
+
+# Product IDs, prices, and exact filenames
+PRODUCTS = {
+    "content-planner": {
+        "name": "Content Planner",
+        "price": "400.00",
+        "file": "content_planner.png",
+        "mimetype": "image/png",
+    },
+    "youtube-growth-guide": {
+        "name": "YouTube Growth Guide",
+        "price": "200.00",
+        "file": "youtube_growth_giude.pdf",
+        "mimetype": "application/pdf",
+    },
+}
+
 signer = (
     URLSafeTimedSerializer(app.secret_key, salt="product-download")
     if app.secret_key
@@ -57,7 +59,7 @@ signer = (
 
 
 def get_paypal_token():
-    """Get an access token from PayPal."""
+    """Obtain an access token from PayPal."""
     if not PAYPAL_CLIENT_ID or not PAYPAL_CLIENT_SECRET:
         raise RuntimeError("PayPal credentials are not configured.")
 
@@ -89,19 +91,16 @@ def paypal_api(method, endpoint, payload=None):
     return response.json()
 
 
-# Home page
 @app.route("/")
 def home():
     return render_template("index.html")
 
 
-# Content Planner sales page
 @app.route("/content-planner")
 def content_planner():
     return render_template("content_planner.html")
 
 
-# Create a PayPal order.
 @app.route("/api/paypal/create-order", methods=["POST"])
 def create_order():
     if not signer or not PAYPAL_CLIENT_ID or not PAYPAL_CLIENT_SECRET:
@@ -137,10 +136,11 @@ def create_order():
 
     except (requests.RequestException, RuntimeError, KeyError):
         app.logger.exception("PayPal order creation failed")
-        return jsonify(error="Could not create payment. Please try again."), 502
+        return jsonify(
+            error="Could not create payment. Please try again."
+        ), 502
 
 
-# Capture payment and issue a download link only after verification.
 @app.route("/api/paypal/capture-order", methods=["POST"])
 def capture_order():
     if not signer or not PAYPAL_CLIENT_ID or not PAYPAL_CLIENT_SECRET:
@@ -153,15 +153,13 @@ def capture_order():
         return jsonify(error="Missing order ID."), 400
 
     try:
-        # Check the order on PayPal before releasing anything.
+        # Verify the order directly with PayPal.
         order = paypal_api(
             "GET",
             f"/v2/checkout/orders/{order_id}",
         )
 
         units = order.get("purchase_units", [])
-        if order.get("status") not in ("APPROVED", "COMPLETED"):
-            return jsonify(error="Payment has not been approved."), 402
 
         if len(units) != 1:
             return jsonify(error="Invalid order details."), 400
@@ -172,21 +170,32 @@ def capture_order():
         if not product:
             return jsonify(error="Invalid purchased product."), 400
 
-        if order.get("status") != "COMPLETED":
+        # Capture payment if the buyer has approved the order.
+        if order.get("status") == "APPROVED":
             order = paypal_api(
                 "POST",
                 f"/v2/checkout/orders/{order_id}/capture",
                 {},
             )
+        elif order.get("status") != "COMPLETED":
+            return jsonify(error="Payment has not been completed."), 402
 
+        # Confirm capture status and the amount paid.
         if order.get("status") != "COMPLETED":
             return jsonify(error="Payment is not complete."), 402
 
         units = order.get("purchase_units", [])
-        if len(units) != 1 or units[0].get("custom_id") != product_id:
+
+        if len(units) != 1:
+            return jsonify(error="Payment verification failed."), 400
+
+        captured_product_id = units[0].get("custom_id")
+
+        if captured_product_id != product_id:
             return jsonify(error="Payment verification failed."), 400
 
         captures = units[0].get("payments", {}).get("captures", [])
+
         if len(captures) != 1:
             return jsonify(error="Payment verification failed."), 400
 
@@ -198,8 +207,26 @@ def capture_order():
             or amount.get("currency_code") != CURRENCY
             or amount.get("value") != product["price"]
         ):
-            return jsonify(error="Payment amount could not be verified."), 402
+            return jsonify(
+                error="Payment amount could not be verified."
+            ), 402
 
+        # Ensure the corresponding product file exists before issuing a link.
+        product_path = (
+            PRODUCTS_DIR / product["file"]
+        ).resolve()
+
+        if (
+            product_path.parent != PRODUCTS_DIR.resolve()
+            or product_path.suffix.lower() not in (".png", ".pdf")
+            or not product_path.is_file()
+        ):
+            app.logger.error("Product file missing: %s", product["file"])
+            return jsonify(
+                error="Payment succeeded, but the product file is unavailable. Contact support."
+            ), 500
+
+        # Generate a signed download link valid for 30 minutes.
         download_token = signer.dumps(
             {
                 "product_id": product_id,
@@ -221,14 +248,17 @@ def capture_order():
 
     except requests.HTTPError:
         app.logger.exception("PayPal payment verification failed")
-        return jsonify(error="Unable to verify payment. If charged, contact support."), 400
+        return jsonify(
+            error="Unable to verify payment. If charged, contact support."
+        ), 400
 
     except (requests.RequestException, RuntimeError, KeyError):
         app.logger.exception("PayPal capture request failed")
-        return jsonify(error="Payment verification is temporarily unavailable."), 502
+        return jsonify(
+            error="Payment verification is temporarily unavailable."
+        ), 502
 
 
-# Protected PDF download.
 @app.route("/download/<token>", methods=["GET"])
 def download_product(token):
     if not signer:
@@ -237,30 +267,36 @@ def download_product(token):
     try:
         data = signer.loads(token, max_age=1800)
     except SignatureExpired:
-        return "Your download link has expired. Please contact support.", 410
+        return (
+            "Your download link has expired. Please contact support.",
+            410,
+        )
     except BadSignature:
         abort(403)
 
-    product = PRODUCTS.get(data.get("product_id"))
+    product_id = data.get("product_id")
+    product = PRODUCTS.get(product_id)
+
     if not product:
         abort(404)
 
-    # Resolve the path and prevent directory traversal.
-    pdf_path = (PRODUCTS_DIR / product["file"]).resolve()
+    product_path = (
+        PRODUCTS_DIR / product["file"]
+    ).resolve()
 
     if (
-        pdf_path.parent != PRODUCTS_DIR.resolve()
-        or pdf_path.suffix.lower() != ".pdf"
-        or not pdf_path.is_file()
+        product_path.parent != PRODUCTS_DIR.resolve()
+        or product_path.suffix.lower() not in (".png", ".pdf")
+        or not product_path.is_file()
     ):
-        app.logger.error("PDF missing: %s", product["file"])
+        app.logger.error("Product file missing: %s", product["file"])
         abort(404)
 
     return send_file(
-        pdf_path,
+        product_path,
         as_attachment=True,
         download_name=product["file"],
-        mimetype="application/pdf",
+        mimetype=product["mimetype"],
     )
 
 
@@ -270,4 +306,5 @@ if __name__ == "__main__":
         port=int(os.environ.get("PORT", 5000)),
         debug=False,
     )
+
 
