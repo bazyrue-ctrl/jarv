@@ -1,166 +1,578 @@
 
-<!-- PAYPAL -->
-<script>
-    // Digital products: payment and download handled by app.py
-    function renderDigitalProductPayPal(selector, productId) {
-        const container = document.querySelector(selector);
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EditPro</title>
 
-        if (!container || !window.paypal) {
-            console.error("PayPal unavailable:", selector);
-            return;
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}">
+    <meta name="theme-color" content="#00c3ff">
+
+    <style>
+        .paypal-container {
+            margin-top: 15px;
+            display: flex;
+            justify-content: center;
+            min-height: 45px;
         }
 
-        paypal.Buttons({
-            style: {
-                color: "blue",
-                shape: "pill",
-                label: "pay",
-                height: 40
-            },
+        .gallery {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: flex-start;
+        }
 
-            createOrder: async function () {
-                const response = await fetch("/api/paypal/create-order", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        product_id: productId
-                    })
-                });
+        .edit,
+        .card {
+            width: 300px;
+            max-width: 90%;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 10px;
+        }
 
-                const result = await response.json();
+        .image-container img {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            display: block;
+        }
 
-                if (!response.ok || !result.orderID) {
-                    throw new Error(
-                        result.error || "Could not create payment order."
-                    );
-                }
+        header,
+        section,
+        footer {
+            max-width: 1000px;
+            margin: auto;
+            padding: 20px;
+            box-sizing: border-box;
+        }
 
-                return result.orderID;
-            },
+        #services {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-            onApprove: async function (data) {
-                const response = await fetch("/api/paypal/capture-order", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        orderID: data.orderID
-                    })
-                });
+        #services .card {
+            margin-bottom: 20px;
+        }
 
-                const result = await response.json();
+        .mpesa-card {
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+        }
 
-                if (
-                    !response.ok ||
-                    !result.success ||
-                    !result.download_url
-                ) {
-                    throw new Error(
-                        result.error || "Payment confirmation failed."
-                    );
-                }
+        .mpesa-text {
+            font-size: 14px;
+            line-height: 1.4;
+        }
 
-                const link = document.createElement("a");
-                link.href = result.download_url;
-                link.textContent = "Download your product";
-                link.style.display = "block";
-                link.style.marginTop = "12px";
-                link.style.fontWeight = "bold";
-                link.style.textAlign = "center";
+        .planner-blur {
+            filter: blur(5px);
+        }
 
-                container.replaceChildren(link);
+        .edit.ebook .image-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-                alert(
-                    "Payment confirmed! Click the download link to get your product."
-                );
-            },
+        .edit.ebook .image-container img {
+            width: 100%;
+            height: 360px;
+            object-fit: contain;
+            object-position: center;
+            display: block;
+            margin: 0 auto;
+            transform: none;
+            transition: none;
+        }
 
-            onError: function (error) {
-                console.error("Digital product payment error:", error);
-                alert(
-                    "Payment or download failed. Please try again."
-                );
+        .edit.ebook .image-container:hover img,
+        .edit.ebook:hover .image-container img {
+            transform: none;
+        }
+
+        .paypal-error {
+            color: #b00020;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 15px;
+                flex-wrap: wrap;
+                gap: 12px;
             }
-        }).render(container);
-    }
 
+            nav a {
+                margin-left: 10px;
+            }
 
-    // Editing services: separate payment flow
-    function renderServicePayPal(selector, amount) {
-        const container = document.querySelector(selector);
+            .hero {
+                padding: 60px 15px;
+            }
 
-        if (!container || !window.paypal) {
-            console.error("PayPal unavailable:", selector);
-            return;
+            .hero h2 {
+                font-size: 28px;
+            }
+
+            #portfolio,
+            #services {
+                padding: 40px 15px;
+            }
+
+            .gallery {
+                gap: 15px;
+            }
+
+            .edit.ebook .image-container img {
+                height: 320px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <h1>EditPro</h1>
+
+        <nav>
+            <a href="#portfolio">Portfolio</a>
+            <a href="#services">Services</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+        <h2>Digital Products &amp; Edits for Sale</h2>
+
+        <p>
+            Discover digital products, content planners, e-books,
+            and professional video editing services.
+        </p>
+
+        <p>
+            <strong>
+                All products will be sent to you after payment via email
+                or an alternative method.
+            </strong>
+        </p>
+    </section>
+
+    <!-- PORTFOLIO -->
+    <section id="portfolio">
+        <h2>Portfolio</h2>
+
+        <div class="gallery">
+
+            <!-- VIDEO EDIT -->
+            <div class="edit">
+                <div class="image-container">
+                    <img
+                        class="planner-blur"
+                        src="{{ url_for('static', filename='images/sydney.jpg') }}"
+                        alt="Video Edit Preview"
+                    >
+                    <div class="watermark">$10</div>
+                </div>
+                <p>Video Edit</p>
+            </div>
+
+            <!-- MESSI EDIT -->
+            <div class="edit">
+                <div class="image-container">
+                    <img
+                        src="{{ url_for('static', filename='images/messi.jpg') }}"
+                        alt="Lionel Messi Edit"
+                    >
+                    <div class="watermark">$10 - $50</div>
+                </div>
+                <p>Lionel Messi Edit</p>
+            </div>
+
+            <!-- CONTENT PLANNER -->
+            <div class="edit planner">
+                <div class="image-container">
+                    <img
+                        class="planner-blur"
+                        src="{{ url_for('static', filename='images/PLANNER.png') }}"
+                        alt="Content Planner"
+                    >
+                    <div class="watermark">$400</div>
+                </div>
+
+                <p>Content Planner Tool</p>
+                <div id="paypal-planner" class="paypal-container"></div>
+            </div>
+
+            <!-- YOUTUBE GROWTH GUIDE -->
+            <div class="edit ebook">
+                <div class="image-container">
+                    <img
+                        src="{{ url_for('static', filename='images/cover.png') }}"
+                        alt="YouTube Growth Guide E-book"
+                    >
+                    <div class="watermark">$200</div>
+                </div>
+
+                <p>YouTube Growth Guide E-book</p>
+                <div id="paypal-ebook" class="paypal-container"></div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services">
+        <h2>Services</h2>
+
+        <div class="card">
+            <h3>Basic Edit</h3>
+            <p>Simple cuts and clean edits</p>
+            <span>$10</span>
+            <div id="paypal-basic" class="paypal-container"></div>
+        </div>
+
+        <div class="card">
+            <h3>Standard Edit</h3>
+            <p>Transitions, effects &amp; color grading</p>
+            <span>$25</span>
+            <div id="paypal-standard" class="paypal-container"></div>
+        </div>
+
+        <div class="card">
+            <h3>Premium Edit</h3>
+            <p>Cinematic editing, advanced effects &amp; extras</p>
+            <span>$40</span>
+            <div id="paypal-premium" class="paypal-container"></div>
+        </div>
+
+        <!-- M-PESA -->
+        <div class="card mpesa-card">
+            <h3>M-Pesa Payment</h3>
+            <p>Pay easily using M-Pesa.</p>
+
+            <p>
+                <strong>Phone Number:</strong><br>
+                +254704167254
+            </p>
+
+            <p>
+                <strong>Name:</strong><br>
+                Jason
+            </p>
+
+            <p class="mpesa-text">
+                After payment, send the M-Pesa confirmation code
+                through the contact form.
+            </p>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+        <h2>Contact Me</h2>
+
+        <form action="https://api.web3forms.com/submit" method="POST">
+            <input
+                type="hidden"
+                name="access_key"
+                value="6be9cbf6-fa59-45ea-a8cc-94df04c0c558"
+            >
+
+            <input
+                type="text"
+                name="name"
+                placeholder="Your Name"
+                required
+            >
+
+            <input
+                type="email"
+                name="email"
+                placeholder="Your Email"
+                required
+            >
+
+            <textarea
+                name="message"
+                placeholder="What do you need?"
+                required
+            ></textarea>
+
+            <button type="submit">Send</button>
+        </form>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2026 EditPro</p>
+    </footer>
+
+    <!-- PAYPAL SDK LOADER AND BUTTONS -->
+    <script>
+        // Keep this Client ID matched to your PayPal app.
+        const PAYPAL_CLIENT_ID =
+            "Afu3wAry34DpyPB6bIOKQx00iskgeqFme0T207sWxulMAqGc_OPJu5wFVXwa7yswbpDp_er1FTGInDJo";
+
+        function showPayPalError(message) {
+            console.error("PayPal:", message);
+
+            document.querySelectorAll(".paypal-container").forEach(
+                function (container) {
+                    container.innerHTML = "";
+
+                    const error = document.createElement("p");
+                    error.className = "paypal-error";
+                    error.textContent = message;
+
+                    container.appendChild(error);
+                }
+            );
         }
 
-        paypal.Buttons({
-            style: {
-                color: "blue",
-                shape: "pill",
-                label: "pay",
-                height: 40
-            },
+        // Load the SDK once and wait for it before rendering buttons.
+        function loadPayPalSdk() {
+            return new Promise(function (resolve, reject) {
+                if (window.paypal && window.paypal.Buttons) {
+                    resolve(window.paypal);
+                    return;
+                }
 
-            createOrder: function (data, actions) {
-                return actions.order.create({
-                    purchase_units: [{
-                        amount: {
-                            currency_code: "USD",
-                            value: amount
-                        }
-                    }]
+                const script = document.createElement("script");
+
+                const params = new URLSearchParams({
+                    "client-id": PAYPAL_CLIENT_ID,
+                    currency: "USD",
+                    intent: "capture"
                 });
-            },
 
-            onApprove: function (data, actions) {
-                return actions.order.capture().then(function (details) {
-                    const firstName =
-                        details.payer &&
-                        details.payer.name &&
-                        details.payer.name.given_name
-                            ? details.payer.name.given_name
-                            : "customer";
+                script.src =
+                    "https://www.paypal.com/sdk/js?" + params.toString();
+
+                script.async = true;
+
+                script.onload = function () {
+                    if (window.paypal && window.paypal.Buttons) {
+                        resolve(window.paypal);
+                    } else {
+                        reject(
+                            new Error(
+                                "PayPal script loaded, but its Buttons API is unavailable."
+                            )
+                        );
+                    }
+                };
+
+                script.onerror = function () {
+                    reject(
+                        new Error(
+                            "The PayPal SDK request failed. Check the Client ID, internet connection, and browser blockers."
+                        )
+                    );
+                };
+
+                document.head.appendChild(script);
+            });
+        }
+
+        // Digital products use the server-side order and capture routes.
+        function renderDigitalProductPayPal(selector, productId) {
+            const container = document.querySelector(selector);
+
+            if (!container) {
+                console.error("Missing PayPal container:", selector);
+                return;
+            }
+
+            window.paypal.Buttons({
+                style: {
+                    color: "blue",
+                    shape: "pill",
+                    label: "pay",
+                    height: 40
+                },
+
+                createOrder: async function () {
+                    const response = await fetch(
+                        "/api/paypal/create-order",
+                        {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                                product_id: productId
+                            })
+                        }
+                    );
+
+                    const result = await response.json();
+
+                    if (!response.ok || !result.orderID) {
+                        throw new Error(
+                            result.error || "Could not create payment order."
+                        );
+                    }
+
+                    return result.orderID;
+                },
+
+                onApprove: async function (data) {
+                    const response = await fetch(
+                        "/api/paypal/capture-order",
+                        {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                                orderID: data.orderID
+                            })
+                        }
+                    );
+
+                    const result = await response.json();
+
+                    if (
+                        !response.ok ||
+                        !result.success ||
+                        !result.download_url
+                    ) {
+                        throw new Error(
+                            result.error ||
+                            "Payment confirmation failed."
+                        );
+                    }
+
+                    const link = document.createElement("a");
+                    link.href = result.download_url;
+                    link.textContent = "Download your product";
+                    link.style.display = "block";
+                    link.style.marginTop = "12px";
+                    link.style.fontWeight = "bold";
+                    link.style.textAlign = "center";
+                    link.style.overflowWrap = "anywhere";
+
+                    container.replaceChildren(link);
 
                     alert(
-                        "Payment successful! Thanks " + firstName +
-                        ". Please use the contact form to send your editing requirements."
+                        "Payment confirmed! Click the download link to get your product."
                     );
-                });
-            },
+                },
 
-            onError: function (error) {
-                console.error("Service payment error:", error);
-                alert("PayPal encountered an error. Please try again.");
-            }
-        }).render(container);
-    }
+                onError: function (error) {
+                    console.error(
+                        "Digital product payment error:",
+                        error
+                    );
 
-
-    window.addEventListener("load", function () {
-        if (!window.paypal) {
-            console.error("PayPal SDK did not load.");
-            alert("PayPal could not load. Please refresh the page.");
-            return;
+                    alert(
+                        "Payment or download failed. Please try again."
+                    );
+                }
+            }).render(container).catch(function (error) {
+                console.error("Could not render PayPal button:", error);
+            });
         }
 
-        // Editing services
-        renderServicePayPal("#paypal-basic", "10");
-        renderServicePayPal("#paypal-standard", "25");
-        renderServicePayPal("#paypal-premium", "40");
+        // Editing services.
+        function renderServicePayPal(selector, amount) {
+            const container = document.querySelector(selector);
 
-        // Digital products: IDs must match those in app.py
-        renderDigitalProductPayPal(
-            "#paypal-planner",
-            "content-planner"
-        );
+            if (!container) {
+                console.error("Missing PayPal container:", selector);
+                return;
+            }
 
-        renderDigitalProductPayPal(
-            "#paypal-ebook",
-            "youtube-growth-guide"
-        );
-    });
-</script>
+            window.paypal.Buttons({
+                style: {
+                    color: "blue",
+                    shape: "pill",
+                    label: "pay",
+                    height: 40
+                },
+
+                createOrder: function (data, actions) {
+                    return actions.order.create({
+                        purchase_units: [{
+                            amount: {
+                                currency_code: "USD",
+                                value: amount
+                            }
+                        }]
+                    });
+                },
+
+                onApprove: function (data, actions) {
+                    return actions.order.capture().then(function (details) {
+                        const firstName =
+                            details.payer &&
+                            details.payer.name &&
+                            details.payer.name.given_name
+                                ? details.payer.name.given_name
+                                : "customer";
+
+                        alert(
+                            "Payment successful! Thanks " + firstName +
+                            ". Please use the contact form to send your editing requirements."
+                        );
+                    });
+                },
+
+                onError: function (error) {
+                    console.error("Service payment error:", error);
+                    alert(
+                        "PayPal encountered an error. Please try again."
+                    );
+                }
+            }).render(container).catch(function (error) {
+                console.error("Could not render service button:", error);
+            });
+        }
+
+        // Load PayPal first, then render every button.
+        document.addEventListener("DOMContentLoaded", async function () {
+            try {
+                await loadPayPalSdk();
+
+                renderServicePayPal("#paypal-basic", "10");
+                renderServicePayPal("#paypal-standard", "25");
+                renderServicePayPal("#paypal-premium", "40");
+
+                renderDigitalProductPayPal(
+                    "#paypal-planner",
+                    "content-planner"
+                );
+
+                renderDigitalProductPayPal(
+                    "#paypal-ebook",
+                    "youtube-growth-guide"
+                );
+
+            } catch (error) {
+                showPayPalError(
+                    "PayPal could not load. Please try again later."
+                );
+
+                console.error(
+                    "PayPal SDK loading failed:",
+                    error
+                );
+            }
+        });
+    </script>
+
+</body>
+</html>
+
