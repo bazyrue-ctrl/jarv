@@ -104,6 +104,31 @@
             text-align: center;
         }
 
+        /* Instagram button */
+        .social-links {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .instagram-button {
+            display: inline-block;
+            background: #E1306C;
+            color: white;
+            padding: 12px 22px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: opacity 0.2s ease;
+        }
+
+        .instagram-button:hover {
+            opacity: 0.85;
+        }
+
+        footer {
+            text-align: center;
+        }
+
         @media (max-width: 768px) {
             header {
                 padding: 15px;
@@ -314,9 +339,32 @@
         </form>
     </section>
 
-    <!-- FOOTER -->
+    <!-- FOOTER WITH INSTAGRAM -->
     <footer>
         <p>© 2026 EditPro</p>
+
+        <div class="social-links">
+            <h3>Connect With Us</h3>
+
+            <a
+                class="instagram-button"
+                href="https://www.instagram.com/lxlthxne_/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Visit our Instagram profile"
+            >
+                📸 Follow Us on Instagram
+            </a>
+
+            <p>
+                Instagram:
+                <a
+                    href="https://www.instagram.com/lxlthxne_/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >@lxlthxne_</a>
+            </p>
+        </div>
     </footer>
 
     <!-- PAYPAL SDK LOADER AND BUTTONS -->
